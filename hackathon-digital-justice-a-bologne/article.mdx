@@ -5,11 +5,15 @@ tags: ["hackathon", "IA"]
 date: "02/12/2024"
 ---
 
+# Hackathon Digital Justice à Bologne
+
 Salut, j'ai fait mon premier Hackathon stylé au début du mois de novembre. Il était organisé par le Conseil de l'Europe, et 7 équipes étaient invitées à Bologne, tous frais payés, pour tenter de remporter 3 000 € de récompense 🤑.
 
 Je vais vous raconter comment on a voulu créer en deux jours un outil qui aurait dû prendre des mois de développement, comment on s'est lamentablement planté, et comment on a, malgre tout, réussi à remporter la troisième place grâce à une petite filouterie qui a fonctionné 5 minutes avant la deadline.
 
-# Avant le Hackathon
+<SectionTitle>
+## Avant le Hackathon
+</SectionTitle>
 
 D'abord, un peu de contexte.
 Le sujet du hackathon était de créer un outil qui permette d'aider les professionnels du droit comme les avocats et les juges à trouver rapidement et facilement des jugements ayant un rapport avec celui sur lequel ils travaillent.
@@ -22,7 +26,7 @@ On tombe sur un site qui répertorie pleins de compte rendus de jugements ainsi 
 
 On se dit que pour faire des modèles d'IA on a besoin de beaucoup de ces textes, donc on décide de se lancer dans l'extraction des ces derniers.
 
-## Scraping
+### Scraping
 
 J'ai utilisé une technique très classique de scraping dont tout le monde devrait être au courant tellement elle est utile.
 
@@ -32,7 +36,7 @@ L'idée c'est de reproduire la requête créée par le frontend vers le backend 
 
 Pour cela on ouvre la console dev sur firefox (F12) et on regarde l'onglet network quand on clique sur "plus"
 
-![[ezgif-7-db7251df96 1.gif]]
+<Picture src="ezgif-7-db7251df96 1.gif" />
 
 Une requête GET interressante apparait :
 
@@ -48,7 +52,7 @@ Et les paramètres de la requête qu'on peut modifier :
 
 La réponse à cette requête contient une liste de 20 Titres + Id + autres infos sur les jugements qu'on veut récupérer. 🤑
 
-![alt text](assets/{9017DAB9-F2ED-4421-8AD6-736D4F6C82C5}.png)
+<Picture src="{9017DAB9-F2ED-4421-8AD6-736D4F6C82C5}.png" />
 
 On change `size=20` pour `size=10000` et on obtient une liste des 600 jsons qui contiennent `id` et `title`. 👍
 
@@ -56,7 +60,7 @@ On isole maintenant la requete qui permet de charger le texte d'un jugement à p
 
 On clique sur un article et on examine l'onglet requête.
 
-![alt text](<assets/ezgif-1-04c55e7e98 1.gif>)
+<Picture src="ezgif-1-04c55e7e98 1.gif" />
 
 Une requete GET vers `https://codices.coe.int/api/precis/DAF7533E-BA85-44F9-432E-08DCD0B6A0AC` qui renvoit un magnifique JSON strucuré.
 
@@ -66,7 +70,9 @@ Bon dans la vraie vie les données sont souvent un peu plus compliquées à scra
 
 En pratique, cela revient souvent à ajouter des headers à notre requête. Je ferai sûrement d'autres articles à ce sujet.
 
-# backend : embeddings + tsne
+<SectionTitle>
+## backend : embeddings + tsne
+</SectionTitle>
 
 Bon en vrai récupérer les données de codices ne nous a pas aidé tant que ça puisque les juges et notamment le goat de la data science à la cour de cassation Amaury Fouret nous avaient concocté un florilège de 5 bases de données complètement hétérogènes avec des fichier Html, pdf, docx et json.
 
@@ -82,7 +88,7 @@ Notre idée était de créer des embeddings sur des résumés de ces textes en a
 
 On voulait ensuite extraire 3 dimensions intéressantes de ces embeddings (environ 1000 dimensions) pour représenter nos jugements sur une map interactive en 3D.
 
-![alt text](assets/{624DB658-8062-4E93-8F38-465AFB9F0356}.png)
+<Picture src="{624DB658-8062-4E93-8F38-465AFB9F0356}.png" />
 
 Cela ressemble beaucoup à une architecture de RAG, (domaine très à la mode surtout comme sujet de stage). On a voulu implémenter toutes ces étapes plus ou moins à la main ce qui après coup n'était peut etre pas la meilleure option, les gagnants ont par exemple utilisé une solution toute faite : https://weaviate.io
 
@@ -102,7 +108,9 @@ Ce fut notre plus grosse déception de ce hackathon, avec ce vecteur store fonct
 
 Et les tests qu'il avait préparés n'étaient pas de tout repos 🥵
 
-# Le test technique
+<SectionTitle>
+## Le test technique
+</SectionTitle>
 
 Le jury nous a transmis 60 résumés en anglais, chacun correspondant à un texte issu des bases de données mentionnées dans l'énoncé.
 
@@ -124,14 +132,16 @@ Magnifique, grâce à cette solution qu'on parvient à faire fonctionner 5 min a
 
 On est sauvés, pas de disqualification !
 
-# Frontend : map 3d + prompt
+<SectionTitle>
+## Frontend : map 3d + prompt
+</SectionTitle>
 
 La partie vraiment originale de notre projet, c'est la visualisation de nos données sur une map 3D. Il nous fallait les choquer.
 
 On voulait représenter des cas sur une map donc on a fait une map en 3D.
 Le site est host sur Vercel et dispo [Ici](https://map-my-justice.vercel.app/)
 
-![alt text](assets/ezgif-6-dbd656204b.gif)
+<Picture src="ezgif-6-dbd656204b.gif" />
 
 L'implémentation de la visualisation est faite avec three JS (une bibliothèque pour faire de la 3d avec React, très puissante)
 
@@ -158,4 +168,4 @@ Faites des hackathons c'est sympa
 
 Bisous
 
-![alt text](<assets/Pasted image 20241204040003.png>)
+<Picture src="Pasted image 20241204040003.png" />
