@@ -3,7 +3,7 @@
         "id": "hackathon-digital-justice-a-bologne",
 		"title": "Hackathon Digital Justice à Bologne",
 		"author": "Dorian Chevalerias",
-		"thumbnail": "https://raw.githubusercontent.com/eos-projets/projects/main/hackathon-digital-justice-a-bologne/assets/thumbnail.jpg",
+		"thumbnail": "assets/thumbnail.jpg",
         "tags": ["hackathon", "IA"],
         "status": null
 	}
