@@ -102,11 +102,9 @@ Je ne vais pas détailler ce qu'on a fait puisqu'on a pas pus aller au bout de c
 
 On lui donne une phrase en input, il créé un embedding et cherche ceux qui sont les plus proches dans l'espace à 1000 dimensions.
 
-<CodeBlock>
 ```python
 results = collection.query(query_texts=["Tax fraud committed by foreigners"], n_results=2,)
 ```
-</CodeBlock>
 
 L'indexage a pris une vingtaine de minutes pour ces 600 fichiers,
 
