@@ -1,0 +1,481 @@
+---
+title: "L'Application Flots - Un BON commencement"
+authors: ["Erwan COUBRET"]
+tags: ["Application", "IA"]
+date: "16/02/2025"
+---
+
+# L'Application Flots 🌊 - Un BON commencement
+
+Depuis quelques mois, j'ai l'idée de développer une application qui permettrait de gérer à la fois mes notes et mes tâches, qui serait en quelque sorte un petit assistant personnel. Rien de révolutionnaire, mais j'aimerais avoir un outil optimal, permettant à la fois une simplicité d'utilisation, tout en permettant une grande capacité de personnalisation. Également, il faut qu'il soit accessible de partout : sur téléphone ou sur ordinateur. Pourquoi pas non plus y intégrer un peu d'IA pour aider à cette optimisation voulue.
+
+J'ai commencé à m'atteler à ce projets lors de ces vacances de la Toussaint 2024 pour en poser les bases. D'autres projets, les trop nombreux partiels et les fêtes de fin d'année m'ont poussé à laisser ce début d'application prendre la poussière pendant quelques mois. Heureusement, il y a de cela quelques semaines j'ai pu reprendre son développement et je pense qu'il m'en faudra encore quelques-unes pour avoir un prototype réellement satisfaisant.
+
+J'avais envie de partager un peu mes avancements ! J'ai déjà eu l'occasion de le faire en interne sur le discord de la communauté Eos (ce site :) ), mais j'aimerais rajouter quelques compléments aux bouts de codes et aux captures d'écrans que j'envoie à des heures aléatoires de la nuit. Je vais donc vous expliquer un peu les backstages du projet : des idées et designs jusqu'aux choix des technos et leur implémentation.
+
+> Pour la petite présentation, je suis [Erwan COUBRET](https://www.erwancoubret.fr/) et je suis en école d'ingé sur Strasbourg. J'ai un cursus centré autour de l'informatique, avec une spécialisation en IA et science des données depuis septembre dernier. Néanmoins, il n'y a pas de développement web et d'application dans nos programmes donc j'ai choisi de m'y intéresser suite à une opportunité de travail en freelance, et j'ai bien aimé ! Après m'être formé et avoir travaillé pendant 7/8 mois en tant que développeur full-stack sur des projets existants, je me suis dit que cela pourrait être rigolo de lancer sa propre appli pour apprendre les points que je n'avais pas eu l'occasion de développer.
+
+---
+
+<SectionTitle>
+## Un bon commencement
+</SectionTitle>
+
+Je vais parler un peu du contexte et du design, pour mes vrais techos qui ne jurent que par les technos vous pouvez sauter à la section *Le setup et les technos*.
+### L'idée
+
+L'initiative du développement prend suite à une remarque personnelle que je me suis faite l'été dernier : je ne connaissais pas d'application qui puisse me permettre de gérer mon emploi du temps et mes tâches de manière très malléable, et qui puisse également servir de repos de notes personnelles classifiables facilement, avec un support markdown si possible.
+
+J'ai remarqué que de nombreuses personnes (dont moi-même) utilisent des messageries pour s'envoyer à eux même des messages informatifs, des contacts, etc. ou se servent de leur application de note native du téléphone pour se noter les choses à faire et y répertorier des infos en vrac. Des applications comme Notion, Obsidian existent déjà et sont très utilisées et répondent à une partie des problématiques, néanmoins elles demandent un temps d'appréhension assez long et sont clairement améliorables sur certains points pour avoir longuement essayé les deux (et utilisant actuellement Obsidian pour écrire ce post).
+
+L'idée est alors d'essayer de développer moins d'outils qu'eux, mais de les optimiser au maximum pour une praticité à l'usage quotidien. Pour les tâches, j'ai également eu l'occasion de travailler en freelance pour [Komia](https://www.komia.io/), un ERP pour les restaurateurs qui avait un système de tâches très développé et que j'estime être adaptable et améliorable pour une utilisation destinée au particulier.
+
+<Note>
+Il y aurait également d'autres features à développer que j'ai en tête mais il faudra attendre les prochains opus de cet article.
+</Note>
+
+### Maquette & Design
+
+En tant que bon ingénieur, j'aime souvent commencer par le design?????!!! Non, il s'agit de quelque chose de plutôt rare pour notre genre, mais qui est très utile pour avoir une idée d'où l'on va (et il faut que je rentabilise mon abonnement adobe). Donc je sors [Illustrator](https://www.adobe.com/products/illustrator.html) pour commencer à jeter 2/3 premières idées de logos discutables, puis je m'attaque à la maquette sur [Figma](https://www.figma.com/fr-fr/design/) pour visualiser la disposition des notes et des tâches.
+
+<Picture src="Figma1.png" />
+
+Cette version ne restera pas longtemps en vigueur, et je prendrais du temps pour créer une identité qui sera davantage convaincante. J'ai eu l'idée de "flots" comme nom sur un coup de tête, ça ressemblait à "flow/workflow" et ça se prononce en anglais (✨🌟floTeSss🌟✨). Pour coller avec le nom, il nous fallait une jolie vague en logo. J'ai donc passé 2 (DEUX!!) jours à batailler avec des cercles dans le but d'avoir quelque chose de proportionnellement et de géométriquement correct, qui rende bien à l’œil de prêt et de loin. Résultat : 1 - je déteste les cercles ; mais : 2 - je suis plutôt content du résultat !
+
+Je vous laisse une première vision de l'enfer que j'ai vécu et toutes les versions nécessaires pour passer d'un petit dessin sur feuille A4 à un logo bien propre 🤵 (les petites étoiles ne vont pas rester mais j'aimais bien sur le coup)
+
+<Picture src="IllustratorLogo1.png" />
+
+<Picture src="Pasted image 20250213214147.png" />
+
+Et j'ai ensuite pu commencer à faire un premier jet de la version mobile sur Figma grâce à la nouvelle identité :
+
+<Picture src="Pasted image 20250213232907.png" />
+
+### Le setup et les technos
+
+<Note>
+Voici la section où l'on va perdre le commun de mortels ! Néanmoins si le monde du web vous intéresse et que vous souhaitez vous pencher sur ses grands principes, essayez de cerner les différences entre **backend** et **frontend**, j'ai lu en diagonal ce site qui a l'air pas mal : https://blog.lesjeudis.com/developpement-front-end-et-back-end-quelles-differences, sinon vous trouverez assez facilement par vous même.
+</Note>
+
+Pour le **frontend**, j'ai choisi de me tourner vers [Ionic](https://ionicframework.com/), un framework qui permet d'adapter du [React](https://react.dev/) en code natif pour différents supports dont les mobiles. C'est à dire qu'avec la même base de code, je produis à la fois la version web accessible sur les navigateurs, ainsi que la version mobile qui sera publiée sur les stores Android et iOS. Cela permet une grande rapidité de développement. Pour le choix de ReactJS, il s'agit d'un framework que j'apprécie utiliser et dont j'en connais bien la logique.
+
+Pour le **backend**, l'idée initiale fut de me tourner vers du [NodeJS](https://nodejs.org/en) avec [ExpressJS](https://expressjs.com/). L'avantage de ce combo est qu'il permet une grande malléabilité pour le code, avec donc aucune restriction d'architecture pour permettre de créer quelque chose d'adapté à chaque projet. Néanmoins, il s'agit d'une méthode que je dirais *rustique* 🦣, car elle demande de quasiment tout ré-implémenter (les middelwares, pas d'orm, les systèmes d'authentification, etc.).
+
+Toussaint dernier, avec [Sylvain BROCAS](https://www.linkedin.com/in/sylvain-brocas-b52571246/) qui souhaitait contribuer au début du développement de l'application, nous avons pris deux jours pour nous retrouver sur Paris et enfin nous mettre à coder. C'est toujours plus sympa de donner un peu de concret aux projets sur lesquels on travaille. Après quelques heures passées dans une bibliothèque, vous pouvez observer mon grand sourire (😬) après avoir setup correctement le front et l'avoir lancé sur mon téléphone : 
+
+<Picture src="Pasted image 20250213214002.png" />
+
+En parallèle Sylvain s'occupait de configurer le backend, mais c'était un peu galère donc je l'ai rejoins pour que l'on puisse un peu structurer le code avec des bases d'architecture hexagonale. Avoir une architecture avancée n'est pas forcément nécessaire dans des petits projets, mais je trouve intéressant d'essayer de configurer de soi-même de telles structures. Cela implique quelques jours de setup en plus, mais ensuite tout roule facilement parce que le code est propre.
+
+Petite anecdote : en voulant retourner travailler dans la bibliothèque le lendemain matin, on s'est rendu compte le nez devant la porte (après 45 min de métro) qu'on était un jour férié, et que toutes les bibliothèques de la zone parisienne étaient logiquement fermée. Donc on a pas trop trouvé mieux comme idée de s'installer dans un parc et de nous remettre à coder. Évidemment il s'agissait du jour de la semaine où la température avait bien descendu, alors on errait pour trouver des bars/restaux pour se réchauffer, et trouver des prises pour que Sylvain puisse recharger la brique qui lui sert d'ordi. On vous laisse cette magnifique photo du moment où l'on avait fini d'implémenter le premier visuel du front :
+
+<Picture src="flots2.jpg]]" />
+
+Pour la base de données, on a d'abord essayé d'utiliser MongoDB, mais on s'est finalement tourné vers PostgreSQL qui est bien plus pratique d'utilisation et malléable selon nos besoins.
+
+Après ces 2 jours parisiens, j'ai continué le durant de la semaine qui suivait à finir de configurer mon backend, créer les middlewares, la gestion d'authentification avec les JWT. J'ai même pris du temps pour faire une belle console avec des couleurs pour faciliter le développement futur, on fait les choses biens quand même 🤵✨ :
+
+<Picture src="Pasted image 20250215015226.png" />
+
+Tout fier du setup du backend qui m'aura pris tout de même quelques temps, j'envoie sur le serveur discord d'Eos si quelqu'un est disponible pour me donner des retours sur ce que j'ai fait, car je n'avais jamais mis en place moi-même un backend. Je reçois alors un un fabuleux message qui m'indique un point crucial. Il me fera remarquer que de vouloir tout construire de soi même sans utiliser de framework c'est certes très formateur, mais ce n'est pas pas trop utilisable : cela demande d'implémenter beaucoup de choses par soi-même, souvent avec les premières librairies qui tombent sous la main, en ayant pas forcément conscience de potentielles failles de sécurité, de problèmes de dépendances. Donc la proposition d'AdonisJS m'a pas mal plue. [Killian](https://www.linkedin.com/in/killianvincent/) m'a ensuite envoyé 2 vidéos de ***3 heures*** réalisées par quelqu'un de la core team d'Adonis et qui explique les avantages du framewor ... et elles m'ont clairement convaincues.
+
+<Note>
+Les voici : [Présentation d'AdonisJS 6](https://www.youtube.com/watch?v=eLNg9yelCqw), [Modèle MVC, architecture n-tier, hexagonal en TypeScript via AdonisJS 6](https://www.youtube.com/watch?v=bZRyqWImbPQ).
+</Note>
+
+
+<Picture src="Pasted image 20250214201003.png" />
+
+Ces deux lignes de réponses m'ont rajouté quelques semaines de travail en plus car j'ai décidé de jeter tout le backend déjà réalisé pour le refaire avec Adonis. La techno est très modulable : déjà elle n'impose pas d'architecture comme certains autres frameworks, ce que j'apprécie. Cela demande de s'assurer que tout est bien connecté au niveau des configurations mais c'est faisable, et la techno laisse vraiment libre des outils que l'on souhaite utiliser en proposant une base (config, routing controller, env, hashing, etc.) à laquelle on peut greffer tout un tas de modules comme un ORM, un service d’authentification, et plein d'autres choses.
+
+Je vous invite vraiment à aller voir les vidéos partagées plus haut, Romain LANZ fait vraiment un super taff explicatif d'Adonis, c'est l'une des personne de la core team du projet donc elle s'y connaît vraiment.
+
+Voilà à quoi ressemble l'architecture du back à la fin de la configuration, et avec beaucoup de parties qui restent propres à Adonis :
+
+```ts
+.
+├── bin
+│   ├── console.ts
+│   ├── server.ts
+│   └── test.ts
+├── config
+│   ├── app.ts
+│   ├── auth.ts
+│   ├── bodyparser.ts
+│   ├── cors.ts
+│   ├── database.ts
+│   ├── hash.ts
+│   ├── logger.ts
+│   └── session.ts
+├── database
+│   └── migrations
+│       └── ...
+├── src
+│   ├── env.ts
+│   ├── exceptions
+│   │   └── handler.ts
+│   ├── kernel.ts
+│   ├── middleware
+│   │   ├── auth_middleware.ts
+│   │   ├── container_bindings_middleware.ts
+│   │   ├── force_json_response_middleware.ts
+│   │   ├── guest_middleware.ts
+│   │   └── silent_auth_middleware.ts
+│   ├── modules
+│   │   ├── Note // (rien encore pour l'instant)
+│   │   └── User
+│   │       ├── Application
+│   │       │   ├── Service
+│   │       │   │   └── user_service.ts
+│   │       │   └── Validator
+│   │       │       └── user_validator.ts
+│   │       ├── Domain
+│   │       │   ├── Entity
+│   │       │   │   └── user.ts
+│   │       │   └── Repository
+│   │       │       └── user_repository.ts
+│   │       ├── Infra
+│   │       │   └── Repository
+│   │       │       └── psql_user_repository.ts
+│   │       └── InterfaceAdapter
+│   │           └── HttpController
+│   │               └── user_controller.ts
+│   ├── providers
+│   │   └── app_provider.ts
+│   └── routes.ts
+├── tests
+├── sessions
+...
+```
+
+Pour le système d'authentification, j'avais utilisé sur le backend précédent un système de JsonWebToken, mais il s'agissait d'un choix non réfléchi car je ne connaissais que celui-là. Suite à une explication des différents mécanismes d'authentification grâce à [cette vidéo](https://www.youtube.com/watch?v=7ALYvSN8XZQ&t=780s) réalisée encore par Romain LANZ (quel goat), j'ai pris le choix de partir sur un système de sessions par fichiers.
+
+Après quelques tests postman et incorporation d'un contexte d'authentification côté frontend, on a un beau petit système de connexion / inscription : 
+
+![[Pasted image 20250215094319.png" />
+<Picture src="Pasted image 20250215094352.png" />
+
+À partir de là on a une bonne structure de projet. On va enfin pouvoir commencer le corps de l'application et ses fonctionnalités.
+
+---
+
+<SectionTitle>
+## Le corps du projet
+</SectionTitle>
+
+### La création d'un classificateur de notes par IA
+
+On avait parlé au début de l'article d'un système de classification automatique de notes, et bien c'est le moment de développer tout ça 🤓. L'idée est de créer un système de catégories qui puissent être suggérées à l'utilisateur lorsqu'il écrit une note. D'ailleurs, les astres s'alignent bien, car l'un des cours de mon école nous demandait de faire un projet de classification. J'en ai profité pour demander aux profs de faire passer cette partie de l'application comme projet et ils ont accepté 🫡.
+
+J'embrigade donc [Nathan WURPILLOT](https://www.linkedin.com/in/nathan-wurpillot-b187122b1/), mon duo habituel pour les projets de groupe à l'école avec lequel on est pas mal complémentaires.
+##### Recherche des modèles et constitution des classes
+
+Avant de se lancer dans le code, il fallait d'abord établir un système de classification pertinent. On a défini une liste de 10 catégories qui nous semblent regrouper la majorité des types de notes qu’un utilisateur pourrait rédiger : *idée*, *liste*, *événement*, *ressource*, *réunion/compte-rendu*, *réflexion*, *tâche*, *veille*, *message*, et "*à voir*" (vidéos, livres, articles, ...). De plus on permet qu'un utilisateur puisse attribuer plusieurs catégories à une même note.
+##### Collecte et génération des données
+
+Trouver un dataset qui colle vraiment au cadre de notre projet est difficile. Alors autant tester de créer le nôtre. Problème : il faut en général beaucoup de données pour pouvoir obtenir un modèle satisfaisant, et si on regarde nos notes de nos téléphones, on est bien loin du compte. Alors on va essayer de siphonner les applications de notes de gens qu'on connaît. On a mis en place un Google Forms qui expliquait notre démarche et on l'a partagé en laissant la possibilité aux répondants de classifier eux mêmes leur note.
+
+![[Pasted image 20250215224928.png" />
+<Picture src="Pasted image 20250215231642.png" />
+
+En deux jours on a récolté environ 80 réponses, ce qui est pas mal mais qui est très loin d'être suffisant, d'autant plus qu'on a dû en supprimer quelques-unes. On a aussi retiré les infos trop personnelles qui n'avaient pas lieu d'être donné en entraînement à un modèle. Après nettoyage on en avait plus qu'une soixantaine d'exploitable réparties ainsi :
+
+```
+catégories de notes
+ressource : 12, evenement : 3, idee : 7, a_voir : 8, message : 6, veille : 3, reflexion : 4, liste : 25, reunion : 3, tâches : 6
+```
+
+On souhaite obtenir environ 50 notes par catégories différentes. Avoir une bonne homogénéité de présence est quelque chose d'important pour ne pas avoir un modèle qui à terme ne favorise pas de catégories en particulier. Comme vous pouvez l'observer, on est loin du compte. Fort heureusement, il existe un super générateur de texte qui marche encore mieux avec des instances d'exemple : chatgpt. En lui donnant les notes d'une certaine catégorie, on a pu lui demander d'en générer d'autres qui pourraient appartenir à cette même catégorie avec un habile prompt en entête :
+
+> Voici le travail, je vais envoyer un certains nombre de notes d'une certaine catégorie (parmi l'ensemble des catégories fourni précédemment en instruction) et l'objectif sera d'en générer de nouvelles dans le même style mais avec des variantes, potentiellement tournant autour d'autres thèmes. Il faut garder en tête qu'il s'agit du type de notes que l'on peut noter sur son téléphone ou son ordinateur. Les notes seront générés en mode txt ou markdown (avec une variation entre les deux).
+
+<Picture src="Pasted image 20250215232402.png" />
+
+Ce prompt, nous l'avons amélioré pour obtenir une structure de note plus ressemblante au réel :
+
+> Génère moi des notes un peu plus longues et plus "humaines", avec des irrégularités dans les espaces, éventuellement des fautes, des abréviations. Ne force pas trop la chose mais un humain a tendance à ne pas avoir un style hyper carré pour de simples notes, n'indente pas tout parfaitement, n'ajoute pas de ## pour spécifier de titre, de - pour spécifier des listes, etc.
+
+Après cela nous avons eu quelques résultats plutôt satisfaisants, en voici des exemples :
+
+```
+Livres à lire (ou relire)  
+  1. L’étranger - Camus (déjà commencé)  
+  2. Le Comte de Monte-Cristo (gros pavé, prévoir du temps)  
+  3. Pourquoi j’ai mangé mon père (léger et drôle ?)  
+  4. Fahrenheit 451 (science-fiction, classique)  
+  5. Demain les chiens (?? pas sûr du titre)  
+  6. Les Fleurs du Mal (poésie)  
+```
+*Exemple de note générée de catégorie liste*
+
+```
+Projets divers :  
+refaire chambre - peinture bleue claire ou gris ?  
+acheter étagère murale (ikea ou bricolage local)  
+cours d’italien - continuer appli ou prendre vrai prof ?  
+test compost sur balcon, besoin de bac spécial ?  
+tenter yoga - vidéo youtube ou salle à tester ?  
+```
+*Exemple de note générée de catégorie tâche (il s'en pose des questions chatgpt)*
+
+```
+tester combinaisons thé + épices  
+- cannelle & lavande  
+- poivre noir & menthe  
+- (doser précis, voir si répulsif insectes ou juste bon goût)  
+```
+*Petit bonus qui m'aura bien fait rigoler sur le coup, bien joué chatgpt*
+
+Grâce à cette méthode on a pu arriver à cette répartition plutôt homogène de nos données.
+
+![[Pasted image 2025021609163<Picture src="ng" />
+##### Création du premier modèle
+
+On a ensuite cherché comment entraîner un modèle pour classifier ces notes. Nathan a testé des méthodes classiques comme ***Bag of Words*** et ***TF-IDF***, qui fonctionnent bien sur des petits corpus (ensembles de mots) mais sont limités sur des données textuelles complexes. Les résultats n'étant pas satisfaisants, on a tenté d'aller plus loin en se tournant vers des modèles plus puissants.
+
+Nous avons opté pour le fine-tuning de ***BERT*** pour notre tâche de classification de notes. BERT est reconnu pour sa capacité à saisir les nuances contextuelles du langage, ce qui le rend efficace pour les tâches de compréhension. Ce modèle a comme inconvénient qu'il est assez vieux, il est paru en 2018 et vous savez à quelle vitesse évoluent les LLMs depuis ces dernières années. Néanmoins, de par son ancienneté et sa célébrité, il existe de nombreuses ressources explicatives de son fonctionnement.
+
+<Note>
+Voilà pour les curieux un super article qui explique en détail le process de fonctionnement de BERT : [BERT for Sequence Classification from Scratch — Code and Theory](https://medium.com/@alexmriggio/bert-for-sequence-classification-from-scratch-code-and-theory-fb88053800fa "https://medium.com/@alexmriggio/bert-for-sequence-classification-from-scratch-code-and-theory-fb88053800fa"). Et pour le même prix une ressource qui explique le fonctionnement des transformers qui propose des visuels de haute volée : [TRANSFORMER EXPLAINER](https://poloclub.github.io/transformer-explainer/). C'est cadeau.
+</Note>
+
+Nous n'avons pas exactement utilisé le modèle BERT mais ***DistilBERT***, une version allégée de BERT qui conserve une grande partie de ses performances tout en étant beaucoup moins lourd. Il est important d'utiliser des modèles léger car ils seront sensés tourner sur des serveurs pour qu'ils soient utilisables pour l'application (et c'est moi qui paierai ces serveurs donc le moins lourd c'est le mieux 🤑). 
+
+Le modèle a été entraîné sur notre petit dataset, et les résultats sont plutôt satisfaisants : une accuracy de 75 %. Ce n’est pas parfait, mais ce n'est pas grave car l'idée est de proposer une suggestion de catégorie à l'utilisateur, ce sera lui qui aura toujours le dernier mot sur le choix des catégories. C'est une bonne preuve de concept, au besoin on l'améliorera.
+
+Comme vous avez pu l'observer, ce modèle est entraîné à associer une note à des éléments d'une liste de catégories donnée. L'idéal serait de pouvoir permettre à l'utilisateur d'ajouter soi même ses propres catégories pour que l'application soit vraiment en accord avec la politique de personnalisation que j'aimerais lui donner.
+##### Un modèle pour les catégories personnalisées
+
+Si un utilisateur ajoute sa propre classe, il est impossible d’entraîner un modèle spécifique à cela. Mais nous pouvons nous tourner sur le principe du ***Zero-Shot Learning***. Grâce à certains modèles, on peut prédire une catégorie sans que le modèle ait été spécifiquement entraîné dessus. Dans notre cas, nous utiliserons ***BART-large-mnli***.
+
+Il suffit de lui fournir une liste de classes possibles avec sa description et il assigne la note à la plus pertinente. Pour éviter les erreurs absurdes, on a mis en place un seuil de confiance : si le score est trop bas, on ignore la suggestion.
+
+Notre méthode finale combine donc notre modèle fine-tuné pour les classes connues et le Zero-Shot Learning pour les nouvelles catégories définies par l’utilisateur. On garde ainsi un système évolutif et flexible, qui peut s’adapter aux besoins de chacun sans avoir à ré-entraîner un modèle à chaque ajout de classe.
+### La création des tâches et des notes
+
+En parallèle du développement du modèle, je m'attelle à la réalisation du système de gestion de notes et de tâches. J'imagine un petit dashboard pour la version pc de l'application avec les zones où iront les widgets :
+
+<Picture src="Pasted image 20250216125848.png" />
+
+Il s'agit d'un visuel très rustique mais je pense que j'avais besoin d'un peu coder et de me projeter dans la logique de l'application avant d'ensuite repenser le tout. 
+
+La création des notes est en soit très simple. Un titre, un contenu et une liste de catégories auxquelles elles sont associées, et c'est tout pour l'instant. Après création des routes côté api/backend, et tests de celles-ci avec [Bruno](https://www.usebruno.com/), un équivalent de postman open-source qui nous embête pas tout le temps pour créer un compte (allez voir c'est sympa, et leur logo de chien est trop moche c'est hilarant). Ensuite pour l'intégration côté front, j'utilise la librairie [axios](https://axios-http.com/docs/intro) pour gérer les requêtes avec mes entêtes, la automatiquement les erreurs... J'utilise la librairie [Tanstack](https://tanstack.com/) (*anciennement react-query*), qui permet de faire une gestion des requêtes intelligemment avec des outils d'optimisation, de gérer les états des requêtes (`loading`, `error`, `success`) ce qui est agréable à ne pas recoder avec des useState et useEffect sur React.
+
+Pour le widget, je l'ai fait sans maquette et pour le modal de création de la note, j'ai utilisé par simplicité les composants fournis par Ionic. C'est très pratique pour faire du développement de features rapide mais ils ne permettent que peu de personnalisation, ce qui n'est pas viable pour une application qui se veut être très propre dans son utilisation.
+
+<Picture src="Pasted image 20250216130048.png" />
+
+<Picture src="Pasted image 20250216130102.png" />
+
+Pour les catégories, on les ajoute les unes après les autres après des virgules, ce qui est très peu agréable mais qui permettait de tester correctement les notes avant qu'on implémente un système de catégorie proprement dans l'application.
+
+La création du système de tâches était davantage intéressante. Il y aura déjà besoin d'une logique plus poussée, et surtout il faut réfléchir à de nombreux paramètres. [Florian LOLLIVIER](https://www.linkedin.com/in/florian-lollivier/), qui est pas mal friand de ce genre d'applications, a produit des petits schémas et a donné des exemples. On voit aussi qu'il différencie les tâches plus ponctuelles des "habitudes" qui sont des tâches récurrentes selon le mois / la semaine.
+
+<Picture src="Pasted image 20250216141452.png" />
+
+<Picture src="Pasted image 20250216141501.png" />
+
+L'idée gardée est de considérer les habitudes comme des tâches et d'éventuellement créer plus tard des sections pour permettre de les dissocier. Au niveau de leur structure en base de données, ce sera la même chose. Pour l'instant on a quelque chose qui ressemble à ça pour l'entité `Task` :
+
+```js
+export enum TaskStatus {
+  TODO = 'todo',
+  IN_PROGRESS = 'in_progress',
+  DONE = 'done',
+  SKIPPED = 'skipped',
+}
+
+export enum TaskType {
+  UNIQUE = 'unique',
+  WEEKLY = 'weekly',
+  MONTHLY = 'monthly',
+  YEARLY = 'yearly',
+}
+
+export enum ImportanceStatus {
+  HIGH = 'high',
+  MEDIUM = 'medium',
+  LOW = 'low',
+}
+
+export interface SubTask {
+  name: string
+  status: TaskStatus
+}
+
+export interface UniqueTask {
+  type: TaskType.UNIQUE
+  startDate?: DateTime
+  endDate?: DateTime
+}
+
+export interface WeeklyTask {
+  type: TaskType.WEEKLY
+  startDate?: DateTime
+  endDate?: DateTime
+  days: {
+    day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'
+    time: string
+  }[]
+  endRecurrenceDate?: DateTime
+}
+
+export interface MonthlyTask {
+  type: TaskType.MONTHLY
+  startDate?: DateTime
+  endDate?: DateTime
+  week: 'first' | 'second' | 'third' | 'fourth' | 'last'
+  day: 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'
+  time: string
+  endRecurrenceDate?: DateTime
+}
+
+export interface YearlyTask {
+  type: TaskType.YEARLY
+  startDate?: DateTime
+  endDate?: DateTime
+  month:
+    | 'january'
+    | 'february'
+    | 'march'
+    | 'april'
+    | 'may'
+    | 'june'
+    | 'july'
+    | 'august'
+    | 'september'
+    | 'october'
+    | 'november'
+    | 'december'
+  time: string
+  day: number
+}
+
+export type TaskSchedule = UniqueTask | WeeklyTask | MonthlyTask | YearlyTask
+
+export default class Task extends BaseModel {
+  @column({ isPrimary: true })
+  declare id: string
+
+  @column()
+  declare user_id: string
+
+  @column()
+  declare title: string
+
+  @column()
+  declare status: TaskStatus
+
+  @column()
+  declare description: string
+
+  @column.dateTime()
+  declare next_occurrence: DateTime | null
+
+  @column()
+  declare schedule: TaskSchedule
+
+  @column()
+  declare subtasks: SubTask[]
+
+  @column()
+  declare importance_status: ImportanceStatus | null
+}
+```
+<Note>
+Petite digression mais c'est vraiment agréable de bosser côté backend et frontend sur le même langage. Là par exemple le fait de pouvoir copier/coller ces structures d'un côté comme de l'autre c'est super, merci le javascript :)
+</Note>
+
+Le point clé dans la gestion des tâches récurrentes est de calculer correctement leur prochaine échéance (le champ `next_occurrence`). Une tâche récurrente doit apparaître à son échéance prévue, mais si elle n'est pas complétée à temps, elle ne doit pas être automatiquement reportée à l'occurrence suivante avant d'avoir été réalisée.
+
+Prenons un exemple concret : imaginons une tâche à accomplir tous les mardis et jeudis (par exemple, le ménage). Si l'utilisateur oublie de la faire le mardi, elle doit rester visible et être signalée comme en retard jusqu'à ce qu'elle soit complétée. L'application ne doit pas considérer automatiquement que l’utilisateur a sauté l’échéance et la reporter à jeudi, c'est à l'utilisateur de le préciser.
+
+Le calcul de la prochaine occurrence doit donc se faire uniquement lorsque la tâche est marquée comme terminée. Si l’utilisateur ne complète la tâche du mardi que le vendredi, l’application doit indiquer un retard de 3 jours et ne reprogrammer la tâche que pour le mardi suivant. Ainsi, l’application peut permettre un suivi rigoureux des tâches et évite qu’elles ne disparaissent sans avoir été effectuées.
+
+Voici ensuite le widget des tâches ainsi que le modal de création avec des récurrences différentes :
+
+![[Pasted image 20250216150045.png" />
+<Picture src="Pasted image 20250216150225.png" />
+<Picture src="Pasted image 20250216150232.png" />
+
+Je n'apprécie vraiment pas cette organisation des paramètres, et le design du modal de création que je trouve profondément non-intuitive. Mais ne vous inquiétez pas, j'ai des idées pour améliorer cela.
+### La dockerisation et les catégories
+
+Roulement de tambours, j'ai enfin trouvé quelqu'un pour m'accompagner sur le long terme pour le projet. Il s'agit d'[Adrien JAYAT](https://www.linkedin.com/in/adrien-jayat/) qui est dans ma formation et qui trouve que le projet est un bon prétexte pour se mettre au web :) Il a quelques expériences niveau infrastructure de projets, en pipelines CI/CD. Il s'est occupé de dockeriser proprement le backend. C'était un peu long de setup les bases de données à chaque fois à la main, franchement il a géré c'est vraiment pratique. Il a aussi fait en sorte de pouvoir run le backend sur le réseau local, ça demande un peu de config mais ça nous permettra de tester l'application facilement sur mobile.
+
+Il a aussi commencé son apprentissage d'Adonis en mettant en place la structure des catégories et en faisant le controller. On a fait en sorte de ne pas se marcher dessus avec des Pull-Requests et des noms de commits cleans. De plus, quand on fait des modifications sur le backend, on demande à l'autre de vérifier nos codes avant de merger. C'est forcément un peu plus de temps de mise en place, mais ça vaut vraiment le coup de prendre des plis de développement professionnels. Le projet est bien plus propre comme cela et il nous évitera de gérer des millions de conflits.
+
+<Picture src="Pasted image 20250216171504.png" />
+
+Parlons des catégories. Elles auront une structure très simple. Un nom, une description pour permettre à l'utilisateur de préciser des informations pour faciliter leur détection. On relit ensuite l'entité aux tables de notes et de tâches grâce à une table de pivot. On permet aussi d'ajouter une couleur à la tache, c'est pas encore implémenté mais ça le sera.
+
+```ts
+export default class Category extends BaseModel {
+  @column({ isPrimary: true })
+  declare id: string
+
+  @column()
+  declare user_id: string
+
+  @column()
+  declare name: string
+
+  @column()
+  declare description: string
+
+  @column()
+  declare color: string
+
+  @manyToMany(() => Note, {
+    pivotTable: 'category_note',
+  })
+  declare notes: ManyToMany<typeof Note>
+
+  @manyToMany(() => Task, {
+    pivotTable: 'category_task',
+  })
+  declare tasks: ManyToMany<typeof Task>
+}
+```
+
+### Connexion de notre modèle à l'appli
+
+Vient maintenant le dernier point de cet article. Il s'agit du moment où nous allons relier notre modèle de prédiction de catégories à l'application. Pour cela nous nous sommes retrouvés chez Nathan, avec la compagnie de [Dorian CHEVALERIAS](https://www.dorian-chevalerias.com/), un mec très sympa de notre école et chaud en IA. Il nous a présenté [FastAPI](https://fastapi.tiangolo.com/), un framework qui permet de développer très facilement une API python pour notre modèle.
+
+On a codé une bonne aprem jusqu'à 2h du mat, avec un petit break raclette pour prendre des forces.
+
+<Picture src="Pasted image 20250216150637.png" />
+
+Ce n'est pas la soirée où j'ai été le plus utile, j'ai surtout fait en sorte de bien récupérer les résultats que renvoyait l'API. Quant à eux ils ont gérés pour l'intégration du modèle. Franchement ça s'est fait très vite avec FastAPI, le framework porte bien son nom !
+
+---
+
+<SectionTitle>
+## La suite ?
+</SectionTitle>
+
+Merci d'avoir lu jusqu'ici, vous en êtes arrivé à la conclusion de ce pavé. Le premier objectif maintenant est de repenser le design pour rendre l'application agréable d'utilisation, je vais essayer de faire en sorte qu'on ait notre style à nous. Il reste encore à coder la gestion de l'apparition des tâches, avec le calcul des occurrences suivantes qu'on avait évoqué plus tôt.
+
+Pour arriver à une V1 qui nous satisfera, il faudra encore faire une gestion des notifications de l'application sous ses différents supports (web/mobile), permettre de lier nos tâches directement à notre agenda. Pour le coup, ça on ne s'imagine vraiment pas en recoder un, c'est souvent galère, on fera en sorte de pouvoir de lier l'appli à des services existant.
+
+Une fois qu'on aura tout ça, on commencera à nous intéresser au déploiement, puis à ajouter des nouvelles features, on en a quelques-unes en tête :)
+
+### Un financement participatif ?
+
+Plus le temps avance, plus je me dis que ce projet serait idéal pour qu'on le partage sur une plateforme de crowdfunding. Cela permettrait de soutenir le paiement des infrastructures, la communication, et de nous accompagner financièrement dans le projet. Si l'idée vous intéresse je vous laisse [me suivre sur Linkedin](https://www.linkedin.com/in/erwan-coubret/).
+
+Néanmoins je pense que cette campagne de financement ne commencera qu'à mon retour en France après mon stage d'été à l'autre bout du monde. J'estimerai que si elle voit le jout, ce sera autour de novembre 2025, nous n'y sommes pas encore.
+
+### Le mot de la fin
+
+J'espère que ce format d'article vous a plu. Je suis heureux d'avoir réussi à faire un point presque exhaustif de l'état de l'avancement du projet. Je suis évidemment ouvert à tout retour / toute critique sur cet article ou ce projet, les idées sont aussi les bienvenues.
+
+Je me permets d'en profiter pour vanter l'initiative Eos, que je porte avec d'autres amis et compères. Si l'article vous a plu, notamment le fait de voir les points techniques d'un projet comme celui-ci, cela pourrait vous intéresser. Notre objectif et de mettre en avant et d'encourager les "jeunes" lanceurs de projets dans le monde de la tech. Nous essayons de mobiliser dans un endroit commun des gens qui ont envie de faire des choses sympas, de collaborer, de recevoir des retours. Je vous laisse explorer ce site pour en apprendre plus, mais si vous voulez voir en temps réel la suite du projet, vous savez où aller.
+
+J'aimerais encore une fois remercier tous les gens qui ont participé de près ou de loin à cette application, que ce soit évidemment ceux qui y ont participé directement, comme ceux qui donnent leurs avis ou impressions.
+
+Je vous dit à dans quelques mois pour le prochain opus de cette série.
+
+À+,
+Erwan
