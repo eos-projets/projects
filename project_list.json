@@ -6,5 +6,13 @@
 		"thumbnail": "assets/thumbnail.jpg",
         "tags": ["hackathon", "IA"],
         "status": null
+	},
+	{
+        "id": "application-flots-partie-1",
+		"title": "Création de l'application Flots - Partie 1",
+		"author": "Erwan Coubret",
+		"thumbnail": "assets/flots2.jpg",
+        "tags": ["Application", "IA"],
+        "status": null
 	}
 ]
