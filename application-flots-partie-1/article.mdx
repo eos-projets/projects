@@ -46,7 +46,7 @@ Je vous laisse une première vision de l'enfer que j'ai vécu et toutes les vers
 
 <Picture src="IllustratorLogo1.png" />
 
-<Picture src="Pasted image 20250213214147.png" />
+<Picture src="Flots-logo.png" />
 
 Et j'ai ensuite pu commencer à faire un premier jet de la version mobile sur Figma grâce à la nouvelle identité :
 
@@ -70,7 +70,7 @@ En parallèle Sylvain s'occupait de configurer le backend, mais c'était un peu 
 
 Petite anecdote : en voulant retourner travailler dans la bibliothèque le lendemain matin, on s'est rendu compte le nez devant la porte (après 45 min de métro) qu'on était un jour férié, et que toutes les bibliothèques de la zone parisienne étaient logiquement fermée. Donc on a pas trop trouvé mieux comme idée de s'installer dans un parc et de nous remettre à coder. Évidemment il s'agissait du jour de la semaine où la température avait bien descendu, alors on errait pour trouver des bars/restaux pour se réchauffer, et trouver des prises pour que Sylvain puisse recharger la brique qui lui sert d'ordi. On vous laisse cette magnifique photo du moment où l'on avait fini d'implémenter le premier visuel du front :
 
-<Picture src="flots2.jpg]]" />
+<Picture src="flots2.jpg" />
 
 Pour la base de données, on a d'abord essayé d'utiliser MongoDB, mais on s'est finalement tourné vers PostgreSQL qui est bien plus pratique d'utilisation et malléable selon nos besoins.
 
@@ -153,7 +153,7 @@ Pour le système d'authentification, j'avais utilisé sur le backend précédent
 
 Après quelques tests postman et incorporation d'un contexte d'authentification côté frontend, on a un beau petit système de connexion / inscription : 
 
-![[Pasted image 20250215094319.png" />
+<Picture src="Pasted image 20250215094319.png" />
 <Picture src="Pasted image 20250215094352.png" />
 
 À partir de là on a une bonne structure de projet. On va enfin pouvoir commencer le corps de l'application et ses fonctionnalités.
@@ -176,7 +176,7 @@ Avant de se lancer dans le code, il fallait d'abord établir un système de clas
 
 Trouver un dataset qui colle vraiment au cadre de notre projet est difficile. Alors autant tester de créer le nôtre. Problème : il faut en général beaucoup de données pour pouvoir obtenir un modèle satisfaisant, et si on regarde nos notes de nos téléphones, on est bien loin du compte. Alors on va essayer de siphonner les applications de notes de gens qu'on connaît. On a mis en place un Google Forms qui expliquait notre démarche et on l'a partagé en laissant la possibilité aux répondants de classifier eux mêmes leur note.
 
-![[Pasted image 20250215224928.png" />
+<Picture src="Pasted image 20250215224928.png" />
 <Picture src="Pasted image 20250215231642.png" />
 
 En deux jours on a récolté environ 80 réponses, ce qui est pas mal mais qui est très loin d'être suffisant, d'autant plus qu'on a dû en supprimer quelques-unes. On a aussi retiré les infos trop personnelles qui n'avaient pas lieu d'être donné en entraînement à un modèle. Après nettoyage on en avait plus qu'une soixantaine d'exploitable réparties ainsi :
@@ -229,7 +229,8 @@ tester combinaisons thé + épices
 
 Grâce à cette méthode on a pu arriver à cette répartition plutôt homogène de nos données.
 
-![[Pasted image 2025021609163<Picture src="ng" />
+<Picture src="Pasted image 20250216091638.png" />
+
 ##### Création du premier modèle
 
 On a ensuite cherché comment entraîner un modèle pour classifier ces notes. Nathan a testé des méthodes classiques comme ***Bag of Words*** et ***TF-IDF***, qui fonctionnent bien sur des petits corpus (ensembles de mots) mais sont limités sur des données textuelles complexes. Les résultats n'étant pas satisfaisants, on a tenté d'aller plus loin en se tournant vers des modèles plus puissants.
@@ -395,8 +396,10 @@ Le calcul de la prochaine occurrence doit donc se faire uniquement lorsque la t�
 
 Voici ensuite le widget des tâches ainsi que le modal de création avec des récurrences différentes :
 
-![[Pasted image 20250216150045.png" />
+<Picture src="Pasted image 20250216150045.png" />
+
 <Picture src="Pasted image 20250216150225.png" />
+
 <Picture src="Pasted image 20250216150232.png" />
 
 Je n'apprécie vraiment pas cette organisation des paramètres, et le design du modal de création que je trouve profondément non-intuitive. Mais ne vous inquiétez pas, j'ai des idées pour améliorer cela.
@@ -439,6 +442,7 @@ export default class Category extends BaseModel {
 }
 ```
 
+
 ### Connexion de notre modèle à l'appli
 
 Vient maintenant le dernier point de cet article. Il s'agit du moment où nous allons relier notre modèle de prédiction de catégories à l'application. Pour cela nous nous sommes retrouvés chez Nathan, avec la compagnie de [Dorian CHEVALERIAS](https://www.dorian-chevalerias.com/), un mec très sympa de notre école et chaud en IA. Il nous a présenté [FastAPI](https://fastapi.tiangolo.com/), un framework qui permet de développer très facilement une API python pour notre modèle.
@@ -478,4 +482,5 @@ J'aimerais encore une fois remercier tous les gens qui ont participé de près o
 Je vous dit à dans quelques mois pour le prochain opus de cette série.
 
 À+,
+
 Erwan
