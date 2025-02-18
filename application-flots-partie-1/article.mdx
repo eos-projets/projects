@@ -154,6 +154,7 @@ Pour le système d'authentification, j'avais utilisé sur le backend précédent
 Après quelques tests postman et incorporation d'un contexte d'authentification côté frontend, on a un beau petit système de connexion / inscription : 
 
 <Picture src="Pasted image 20250215094319.png" />
+
 <Picture src="Pasted image 20250215094352.png" />
 
 À partir de là on a une bonne structure de projet. On va enfin pouvoir commencer le corps de l'application et ses fonctionnalités.
@@ -169,14 +170,17 @@ Après quelques tests postman et incorporation d'un contexte d'authentification 
 On avait parlé au début de l'article d'un système de classification automatique de notes, et bien c'est le moment de développer tout ça 🤓. L'idée est de créer un système de catégories qui puissent être suggérées à l'utilisateur lorsqu'il écrit une note. D'ailleurs, les astres s'alignent bien, car l'un des cours de mon école nous demandait de faire un projet de classification. J'en ai profité pour demander aux profs de faire passer cette partie de l'application comme projet et ils ont accepté 🫡.
 
 J'embrigade donc [Nathan WURPILLOT](https://www.linkedin.com/in/nathan-wurpillot-b187122b1/), mon duo habituel pour les projets de groupe à l'école avec lequel on est pas mal complémentaires.
+
 ##### Recherche des modèles et constitution des classes
 
 Avant de se lancer dans le code, il fallait d'abord établir un système de classification pertinent. On a défini une liste de 10 catégories qui nous semblent regrouper la majorité des types de notes qu’un utilisateur pourrait rédiger : *idée*, *liste*, *événement*, *ressource*, *réunion/compte-rendu*, *réflexion*, *tâche*, *veille*, *message*, et "*à voir*" (vidéos, livres, articles, ...). De plus on permet qu'un utilisateur puisse attribuer plusieurs catégories à une même note.
+
 ##### Collecte et génération des données
 
 Trouver un dataset qui colle vraiment au cadre de notre projet est difficile. Alors autant tester de créer le nôtre. Problème : il faut en général beaucoup de données pour pouvoir obtenir un modèle satisfaisant, et si on regarde nos notes de nos téléphones, on est bien loin du compte. Alors on va essayer de siphonner les applications de notes de gens qu'on connaît. On a mis en place un Google Forms qui expliquait notre démarche et on l'a partagé en laissant la possibilité aux répondants de classifier eux mêmes leur note.
 
 <Picture src="Pasted image 20250215224928.png" />
+
 <Picture src="Pasted image 20250215231642.png" />
 
 En deux jours on a récolté environ 80 réponses, ce qui est pas mal mais qui est très loin d'être suffisant, d'autant plus qu'on a dû en supprimer quelques-unes. On a aussi retiré les infos trop personnelles qui n'avaient pas lieu d'être donné en entraînement à un modèle. Après nettoyage on en avait plus qu'une soixantaine d'exploitable réparties ainsi :
@@ -254,6 +258,7 @@ Si un utilisateur ajoute sa propre classe, il est impossible d’entraîner un m
 Il suffit de lui fournir une liste de classes possibles avec sa description et il assigne la note à la plus pertinente. Pour éviter les erreurs absurdes, on a mis en place un seuil de confiance : si le score est trop bas, on ignore la suggestion.
 
 Notre méthode finale combine donc notre modèle fine-tuné pour les classes connues et le Zero-Shot Learning pour les nouvelles catégories définies par l’utilisateur. On garde ainsi un système évolutif et flexible, qui peut s’adapter aux besoins de chacun sans avoir à ré-entraîner un modèle à chaque ajout de classe.
+
 ### La création des tâches et des notes
 
 En parallèle du développement du modèle, je m'attelle à la réalisation du système de gestion de notes et de tâches. J'imagine un petit dashboard pour la version pc de l'application avec les zones où iront les widgets :
@@ -385,6 +390,7 @@ export default class Task extends BaseModel {
   declare importance_status: ImportanceStatus | null
 }
 ```
+
 <Note>
 Petite digression mais c'est vraiment agréable de bosser côté backend et frontend sur le même langage. Là par exemple le fait de pouvoir copier/coller ces structures d'un côté comme de l'autre c'est super, merci le javascript :)
 </Note>
@@ -404,6 +410,7 @@ Voici ensuite le widget des tâches ainsi que le modal de création avec des ré
 <Picture src="Pasted image 20250216150232.png" />
 
 Je n'apprécie vraiment pas cette organisation des paramètres, et le design du modal de création que je trouve profondément non-intuitive. Mais ne vous inquiétez pas, j'ai des idées pour améliorer cela.
+
 ### La dockerisation et les catégories
 
 Roulement de tambours, j'ai enfin trouvé quelqu'un pour m'accompagner sur le long terme pour le projet. Il s'agit d'[Adrien JAYAT](https://www.linkedin.com/in/adrien-jayat/) qui est dans ma formation et qui trouve que le projet est un bon prétexte pour se mettre au web :) Il a quelques expériences niveau infrastructure de projets, en pipelines CI/CD. Il s'est occupé de dockeriser proprement le backend. C'était un peu long de setup les bases de données à chaque fois à la main, franchement il a géré c'est vraiment pratique. Il a aussi fait en sorte de pouvoir run le backend sur le réseau local, ça demande un peu de config mais ça nous permettra de tester l'application facilement sur mobile.
@@ -442,7 +449,6 @@ export default class Category extends BaseModel {
   declare tasks: ManyToMany<typeof Task>
 }
 ```
-
 
 ### Connexion de notre modèle à l'appli
 
