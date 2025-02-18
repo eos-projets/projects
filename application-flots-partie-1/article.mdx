@@ -227,25 +227,26 @@ tester combinaisons thé + épices
 ```
 *Petit bonus qui m'aura bien fait rigoler sur le coup, bien joué chatgpt*
 
-Grâce à cette méthode on a pu arriver à cette répartition plutôt homogène de nos données.
+Grâce à cette méthode, nous avons pu arriver à cette répartition plutôt homogène de nos données.
 
 <Picture src="Pasted image 20250216091638.png" />
 
 ##### Création du premier modèle
 
-On a ensuite cherché comment entraîner un modèle pour classifier ces notes. Nathan a testé des méthodes classiques comme ***Bag of Words*** et ***TF-IDF***, qui fonctionnent bien sur des petits corpus (ensembles de mots) mais sont limités sur des données textuelles complexes. Les résultats n'étant pas satisfaisants, on a tenté d'aller plus loin en se tournant vers des modèles plus puissants.
+On a ensuite cherché comment entraîner un modèle pour classifier ces notes. Nathan a testé des méthodes classiques comme ***Bag of Words*** et ***TF-IDF***, qui fonctionnent bien sur des petits corpus (ensembles de mots) mais sont limités sur des données textuelles complexes. Les résultats n'étant pas satisfaisants, nous avons tenté d'aller plus loin en se tournant vers des modèles plus puissants.
 
-Nous avons opté pour le fine-tuning de ***BERT*** pour notre tâche de classification de notes. BERT est reconnu pour sa capacité à saisir les nuances contextuelles du langage, ce qui le rend efficace pour les tâches de compréhension. Ce modèle a comme inconvénient qu'il est assez vieux, il est paru en 2018 et vous savez à quelle vitesse évoluent les LLMs depuis ces dernières années. Néanmoins, de par son ancienneté et sa célébrité, il existe de nombreuses ressources explicatives de son fonctionnement.
+Nous avons opté pour le fine-tuning de ***BERT*** pour notre tâche de classification de notes. BERT est reconnu pour sa capacité à saisir les nuances contextuelles du langage, ce qui le rend efficace pour les tâches de compréhension. L’inconvénient de ce modèle est qu’il est relativement ancien : il est paru en 2018, et vous savez à quelle vitesse évoluent les LLMs ces dernières années. Néanmoins, de par son ancienneté et sa popularité, il existe de nombreuses ressources explicatives de son fonctionnement.
 
 <Note>
 Voilà pour les curieux un super article qui explique en détail le process de fonctionnement de BERT : [BERT for Sequence Classification from Scratch — Code and Theory](https://medium.com/@alexmriggio/bert-for-sequence-classification-from-scratch-code-and-theory-fb88053800fa "https://medium.com/@alexmriggio/bert-for-sequence-classification-from-scratch-code-and-theory-fb88053800fa"). Et pour le même prix une ressource qui explique le fonctionnement des transformers qui propose des visuels de haute volée : [TRANSFORMER EXPLAINER](https://poloclub.github.io/transformer-explainer/). C'est cadeau.
 </Note>
 
-Nous n'avons pas exactement utilisé le modèle BERT mais ***DistilBERT***, une version allégée de BERT qui conserve une grande partie de ses performances tout en étant beaucoup moins lourd. Il est important d'utiliser des modèles léger car ils seront sensés tourner sur des serveurs pour qu'ils soient utilisables pour l'application (et c'est moi qui paierai ces serveurs donc le moins lourd c'est le mieux 🤑). 
+Nous n'avons pas exactement utilisé le modèle BERT mais ***DistilBERT***, une version allégée de BERT qui conserve une grande partie de ses performances tout en étant beaucoup moins lourd. Il est important d'utiliser des modèles légers, car ils sont censés tourner sur des serveurs pour qu'ils soient utilisables pour l'application (et c'est moi qui paierai ces serveurs donc le moins lourd c'est le mieux 🤑). 
 
-Le modèle a été entraîné sur notre petit dataset, et les résultats sont plutôt satisfaisants : une accuracy de 75 %. Ce n’est pas parfait, mais ce n'est pas grave car l'idée est de proposer une suggestion de catégorie à l'utilisateur, ce sera lui qui aura toujours le dernier mot sur le choix des catégories. C'est une bonne preuve de concept, au besoin on l'améliorera.
+Le modèle a été entraîné sur notre petit dataset, et les résultats sont plutôt satisfaisants : une accuracy de 75 %. Ce n’est pas parfait, mais ce n’est pas un problème, car l'idée est simplement de suggérer une catégorie à l'utilisateur. Ce sera lui qui aura toujours le dernier mot sur le choix des catégories. C'est une bonne preuve de concept, au besoin on l'améliorera.
 
 Comme vous avez pu l'observer, ce modèle est entraîné à associer une note à des éléments d'une liste de catégories donnée. L'idéal serait de pouvoir permettre à l'utilisateur d'ajouter soi même ses propres catégories pour que l'application soit vraiment en accord avec la politique de personnalisation que j'aimerais lui donner.
+
 ##### Un modèle pour les catégories personnalisées
 
 Si un utilisateur ajoute sa propre classe, il est impossible d’entraîner un modèle spécifique à cela. Mais nous pouvons nous tourner sur le principe du ***Zero-Shot Learning***. Grâce à certains modèles, on peut prédire une catégorie sans que le modèle ait été spécifiquement entraîné dessus. Dans notre cas, nous utiliserons ***BART-large-mnli***.
