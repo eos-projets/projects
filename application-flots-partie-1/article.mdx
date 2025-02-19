@@ -93,7 +93,7 @@ Je vous invite vraiment à aller voir les vidéos partagées plus haut, Romain L
 
 Voilà à quoi ressemble l'architecture du back à la fin de la configuration, et avec beaucoup de parties qui restent propres à Adonis :
 
-```ts
+```sh
 .
 ├── bin
 │   ├── console.ts
@@ -123,7 +123,7 @@ Voilà à quoi ressemble l'architecture du back à la fin de la configuration, e
 │   │   ├── guest_middleware.ts
 │   │   └── silent_auth_middleware.ts
 │   ├── modules
-│   │   ├── Note // (rien encore pour l'instant)
+│   │   ├── Note # (rien encore pour l'instant)
 │   │   └── User
 │   │       ├── Application
 │   │       │   ├── Service
@@ -285,7 +285,7 @@ La création du système de tâches était davantage intéressante. Il y aura d�
 
 L'idée gardée est de considérer les habitudes comme des tâches et d'éventuellement créer plus tard des sections pour permettre de les dissocier. Au niveau de leur structure en base de données, ce sera la même chose. Pour l'instant on a quelque chose qui ressemble à ça pour l'entité `Task` :
 
-```js
+```ts
 export enum TaskStatus {
   TODO = 'todo',
   IN_PROGRESS = 'in_progress',
