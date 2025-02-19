@@ -9,7 +9,7 @@ date: "16/02/2025"
 
 Depuis quelques mois, j'ai l'idée de développer une application qui permettrait de gérer à la fois mes notes et mes tâches, qui serait en quelque sorte un petit assistant personnel. Rien de révolutionnaire, mais j'aimerais avoir un outil optimal, permettant à la fois une simplicité d'utilisation, tout en permettant une grande capacité de personnalisation. Également, il faut qu'il soit accessible de partout : sur téléphone ou sur ordinateur. Pourquoi pas non plus y intégrer un peu d'IA pour aider à cette optimisation voulue.
 
-J'ai commencé à m'atteler à ce projets lors de ces vacances de la Toussaint 2024 pour en poser les bases. D'autres projets, les trop nombreux partiels et les fêtes de fin d'année m'ont poussé à laisser ce début d'application prendre la poussière pendant quelques mois. Heureusement, il y a de cela quelques semaines j'ai pu reprendre son développement et je pense qu'il m'en faudra encore quelques-unes pour avoir un prototype réellement satisfaisant.
+J'ai commencé à m'atteler à ce projet lors de ces vacances de la Toussaint 2024 pour en poser les bases. D'autres projets, les trop nombreux partiels et les fêtes de fin d'année m'ont poussé à laisser ce début d'application prendre la poussière pendant quelques mois. Heureusement, il y a de cela quelques semaines j'ai pu reprendre son développement et je pense qu'il m'en faudra encore quelques-unes pour avoir un prototype réellement satisfaisant.
 
 J'avais envie de partager un peu mes avancements ! J'ai déjà eu l'occasion de le faire en interne sur le discord de la communauté Eos (ce site :) ), mais j'aimerais rajouter quelques compléments aux bouts de codes et aux captures d'écrans que j'envoie à des heures aléatoires de la nuit. Je vais donc vous expliquer un peu les backstages du projet : des idées et designs jusqu'aux choix des technos et leur implémentation.
 
@@ -24,7 +24,7 @@ J'avais envie de partager un peu mes avancements ! J'ai déjà eu l'occasion de 
 Je vais parler un peu du contexte et du design, pour mes vrais techos qui ne jurent que par les technos vous pouvez sauter à la section *Le setup et les technos*.
 ### L'idée
 
-L'initiative du développement prend suite à une remarque personnelle que je me suis faite l'été dernier : je ne connaissais pas d'application qui puisse me permettre de gérer mon emploi du temps et mes tâches de manière très malléable, et qui puisse également servir de repos de notes personnelles classifiables facilement, avec un support markdown si possible.
+L'initiative du développement prend suite à une remarque personnelle que je me suis faite l'été dernier : je ne connaissais pas d'application qui puisse me permettre de gérer mon emploi du temps et mes tâches de manière très malléable, tout en servant également de dépôt pour des notes personnelles facilement organisables, avec un support [markdown](https://www.markdownguide.org/basic-syntax/) si possible.
 
 J'ai remarqué que de nombreuses personnes (dont moi-même) utilisent des messageries pour s'envoyer à eux même des messages informatifs, des contacts, etc. ou se servent de leur application de note native du téléphone pour se noter les choses à faire et y répertorier des infos en vrac. Des applications comme Notion, Obsidian existent déjà et sont très utilisées et répondent à une partie des problématiques, néanmoins elles demandent un temps d'appréhension assez long et sont clairement améliorables sur certains points pour avoir longuement essayé les deux (et utilisant actuellement Obsidian pour écrire ce post).
 
@@ -40,7 +40,7 @@ En tant que bon ingénieur, j'aime souvent commencer par le design?????!!! Non, 
 
 <Picture src="Figma1.png" />
 
-Cette version ne restera pas longtemps en vigueur, et je prendrais du temps pour créer une identité qui sera davantage convaincante. J'ai eu l'idée de "flots" comme nom sur un coup de tête, ça ressemblait à "flow/workflow" et ça se prononce en anglais (✨🌟floTeSss🌟✨). Pour coller avec le nom, il nous fallait une jolie vague en logo. J'ai donc passé 2 (DEUX!!) jours à batailler avec des cercles dans le but d'avoir quelque chose de proportionnellement et de géométriquement correct, qui rende bien à l’œil de prêt et de loin. Résultat : 1 - je déteste les cercles ; mais : 2 - je suis plutôt content du résultat !
+Cette version ne restera pas longtemps en vigueur, et je prendrais du temps pour créer une identité qui sera davantage convaincante. J'ai eu l'idée de "flots" comme nom sur un coup de tête, ça ressemblait à "flow/workflow" et ça se prononce en anglais (✨🌟floTeSss🌟✨). Pour coller avec le nom, il nous fallait une jolie vague en logo. J'ai donc passé 2 (DEUX!!) jours à batailler avec des cercles dans le but d'avoir quelque chose de proportionnellement et de géométriquement correct, qui rende bien à l’œil de près et de loin. Résultat : 1 - je déteste les cercles ; mais : 2 - je suis plutôt content du résultat !
 
 Je vous laisse une première vision de l'enfer que j'ai vécu et toutes les versions nécessaires pour passer d'un petit dessin sur feuille A4 à un logo bien propre 🤵 (les petites étoiles ne vont pas rester mais j'aimais bien sur le coup)
 
@@ -190,9 +190,9 @@ catégories de notes
 ressource : 12, evenement : 3, idee : 7, a_voir : 8, message : 6, veille : 3, reflexion : 4, liste : 25, reunion : 3, tâches : 6
 ```
 
-On souhaite obtenir environ 50 notes par catégories différentes. Avoir une bonne homogénéité de présence est quelque chose d'important pour ne pas avoir un modèle qui à terme ne favorise pas de catégories en particulier. Comme vous pouvez l'observer, on est loin du compte. Fort heureusement, il existe un super générateur de texte qui marche encore mieux avec des instances d'exemple : chatgpt. En lui donnant les notes d'une certaine catégorie, on a pu lui demander d'en générer d'autres qui pourraient appartenir à cette même catégorie avec un habile prompt en entête :
+On souhaite obtenir environ 50 notes par catégorie différente. Avoir une bonne homogénéité de présence est quelque chose d'important pour ne pas avoir un modèle qui à terme ne favorise pas de catégories en particulier. Comme vous pouvez l'observer, on est loin du compte. Fort heureusement, il existe un super générateur de texte qui marche encore mieux avec des instances d'exemple : chatgpt. En lui donnant les notes d'une certaine catégorie, on a pu lui demander d'en générer d'autres qui pourraient appartenir à cette même catégorie avec un habile prompt en entête :
 
-> Voici le travail, je vais envoyer un certains nombre de notes d'une certaine catégorie (parmi l'ensemble des catégories fourni précédemment en instruction) et l'objectif sera d'en générer de nouvelles dans le même style mais avec des variantes, potentiellement tournant autour d'autres thèmes. Il faut garder en tête qu'il s'agit du type de notes que l'on peut noter sur son téléphone ou son ordinateur. Les notes seront générés en mode txt ou markdown (avec une variation entre les deux).
+> Voici le travail, je vais envoyer un certains nombre de notes d'une certaine catégorie (parmi l'ensemble des catégories fourni précédemment en instruction) et l'objectif sera d'en générer de nouvelles dans le même style mais avec des variantes, potentiellement tournant autour d'autres thèmes. Il faut garder en tête qu'il s'agit du type de notes que l'on peut noter sur son téléphone ou son ordinateur. Les notes seront générées en mode txt ou markdown (avec une variation entre les deux).
 
 <Picture src="Pasted image 20250215232402.png" />
 
