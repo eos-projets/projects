@@ -15,4 +15,13 @@
         "tags": ["Application", "IA"],
         "status": null
 	}
+	,
+	{
+        "id": "starget_presentation",
+		"title": "Starget : Conception d'une monture astronomique",
+		"author": "Sylvain Brocas",
+		"thumbnail": "assets/thumbnail.png",
+        "tags": ["Mécatronique", "Python", "Astronomie", "Mécanique", "Électronique"],
+        "status": null
+	}
 ]
