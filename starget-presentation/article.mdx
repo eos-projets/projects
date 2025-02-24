@@ -64,6 +64,7 @@ Le cahier des charges de ce projet va rester assez simple et général, dans la 
 | Consommation électrique | Faible, adaptée aux sorties sur le terrain.                                                       |
 | Contrôle                | Pilotage via un PC utilisant le logiciel d'astrophotographie NINA.                                |
 | Fabrication             | Moyens de fabrication accessibles (Fablab et matériel personnel).                                 |
+
 **Pour synthétiser, je veux me placer au niveau de performances équivalent à celui d'une Star Adventurer, mais avec une structure plus légère et le support du GOTO, à destination d'une utilisation comme setup ultraportable.**
 
 ### 1.2 : Planification
@@ -96,35 +97,14 @@ Une monture s'utilise de la manière suivante :
 ### 2.3 : La connexion avec l'élément de contrôle
 Pour connecter la monture à l'élément de contrôle, il faut choisir un **protocole de communication**. Il en existe plusieurs dédiés à l'astronomie et supportés par quasiment tous les logiciels de contrôle de monture, j'ai choisis de travailler avec une solution qui s'appelle **Alpaca, développé par ASCOM**, grand nom du domaine.
 
-<Picture src="alpaca_logo.png" />
+<Picture src="alpaca_logo.png" width=20% height=auto/>
 
 Alpaca est un protocole de communication qui permet de contrôler des équipements astronomiques à distance, via par exemple un réseau local, mais a aussi la particularité d'être multiplateforme. Cela signifie que le driver de la monture pourra être utilisé depuis un PC Windows, Linux, un smartphone sans avoir à réécrire le code pour chaque plateforme.
 
 **Voici comment fonctionne Alpaca** : Pour construire le driver qui permettra la communication entre l'élément de contrôle et la monture, il faut développer un driver *Client* côté contrôle, et un driver *Device* côté monture qui respectivement enverront et recevront les instruction. Le driver *Client* est déjà implémenté dans la plupart des logiciels astro, c'est quelque chose que je n'aurai pas à faire. Il me reste tout de même à développer le bout de code qui transformera des messages standardisés et les **paramètres**** associés à la commande en une action physique de la monture (mouvement, lecture de la position, …)
 
 Le diagramme suivant précise le parcours communications au sein d'un driver Alpaca :
-```mermaid
-
-%%{init: {'themeVariables': {'sequenceDiagramActorFontSize': '10px', 'sequenceDiagramNoteFontSize': '10px', 'sequenceDiagramMessageFontSize': '10px', 'sequenceDiagramMargin': 0}}}%%
-
-sequenceDiagram
-    participant Client as Application Client
-    participant Server as Serveur Alpaca
-    participant Driver as Pilote
-    participant Device as Appareil Physique
-    
-    Note over Client,Device: Phase de Découverte
-    Client->>Server: Requête de Découverte
-    Server-->>Client: Réponse avec Port/IP
-    
-    Note over Client,Device: Phase d'Opération
-    Client->>Server: Requête HTTP
-    Server->>Driver: Route vers le Pilote
-    Driver->>Device: Commande Physique
-    Device-->>Driver: Réponse Physique
-    Driver-->>Server: Format JSON
-    Server-->>Client: Réponse HTTP
-```
+<Picture  src="alpaca_workflow_diagram.svg" />
 
 > Un driver Alpaca est en fait tout simplement une API que l'on peut construire dans n'importe quel langage tant qu'on peut créer un réseau entre l'élément de contrôle et la monture (Dans mon cas, je pense au Wifi).
 
@@ -208,9 +188,7 @@ Pour estimer mon besoin de précision sur le suivi, voici mon raisonnement :
 
 
 [Echantillonnage](https://www.univers-astro.fr/fr/content/6-le-calcul-d-echantillonnage) :  
-{/* $$
-e = 206 \times \frac{5.71 \mu m}{320\ mm} = 3.68''\text{/px}
-$$ */}
+<Picture src="equation.png" />
 
 Un pixel couvre donc 3.68" d'arc dans cette configuration. Je veux que l'angle correspondant à un pas soit plus faible que cette valeur pour pouvoir suivre finement le ciel sans décalage entre les images. Si l'on se base sur le critère de Shannon, on devrait avoir un pas au moins deux fois plus fin que la résolution d'un pixel.
 
@@ -219,20 +197,7 @@ D'après mes recherches, il ressort que le facteur de **microstepping** maximum 
 >Le microstepping est une technique de commande d'un moteur pas à pas qui permet de multiplier virtuellement le nombre de pas d'un moteur et donc améliorer sa résolution angulaire. Un facteur de 32 signifie qu'on multiplie le nombre de positions possibles par 32, et qu'on divise par autant sans résolution angulaire. Utiliser le plus gros facteur possible permet de réduire le coefficient de réduction du réducteur qui serait éventuellement nécessaire, et donc de simplifier sa conception.
 
 Pour le moteur que j'ai sélectionné :
-```mermaid
-flowchart LR
-    A["Pas Moteur
-    1 pas = 1.8°"] --> B["Micro-pas
-    1 μpas = 1.8° ÷ 32
-    = 0.05625°
-    = 202.5''"] --> C["Réducteur
-    Ratio ~1/120
-    1 μpas ≈ 1.69''"]
-
-    style A fill:#ffecb3,stroke:#ffa000,color:#000000
-    style B fill:#b3e5fc,stroke:#0288d1,color:#000000
-    style C fill:#c8e6c9,stroke:#388e3c,color:#000000
-```
+<Picture src="mstep_size_diagram.svg" />
 
 
 Si l'on reprends la situation considérée sous forme de schéma, voilà ce que ça peut donner sur les deux axes :
