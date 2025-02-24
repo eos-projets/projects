@@ -30,7 +30,10 @@ Vous l'aurez compris, dans ce projet, les gros défis vont reposer dans l'optimi
 
 **Je vous laisse plonger dans cette aventure avec moi, dans cet article, je vais vous amener avec moi dans la jungle que représente un tel projet. Sachez que je partage également régulièrement des nouvelles du projet sur notre [serveur discord](https://discord.com/invite/339KvZDSf7).**
 
+<SectionTitle>
 ## Avant-propos 
+</SectionTitle>
+
 Comme dans tout projet, la première chose à faire, c'est de saisir un stylo, un papier (dans mon cas, un carnet entier ^^) et de poser au calme nos idées : 
 
 Qu'est-ce que je veux faire ? *Une monture astronomique*. Très bien, mais qu'a-t-elle de spécial cette monture ? *Elle est très légère, on peut le mettre dans son sac sans la casser, et ah, on peut l'alimenter avec une batterie externe… vu qu'on va l'utiliser dans les champs, à la montagne, … Mais, au fait, existe-t-il déjà des montures similaires ? J'ai entendu parler d'Onstep par exemple.
@@ -43,7 +46,10 @@ Qu'est-ce que je veux faire ? *Une monture astronomique*. Très bien, mais qu'a-
 
 > En découvrant le projet, vous vous ferez peut-être parfois la réflexion que je fouille trop certains points, que je m'attache à des solutions qui ne permettent pas de faire avancer le projet, mais gardez à l'esprit que j'y trouve sûrement un intérêt, que j'éprouve de la curiosité à ce sujet. **N'hésitez en revanche pas à partager votre avis sur le projet, à me poser des questions, à me donner des conseils. La meilleure solution vient souvent des remarques les plus anodines.**
 
+<SectionTitle>
 ## Étape 1 : Structurer le projet
+</SectionTitle>
+
 Il est temps de passer pour de vrai au projet. Dans cet article, je vais rester assez général. D'autres articles viendrons pour expliquer en détail certains points techniques. Je vais aujourd'hui me contenter d'expliquer les grandes lignes du projet, les grandes étapes que je vais suivre pour arriver à mes fins.
 
 > **Une revue de projet sera justement (ou a été) diffusée sur notre [chaîne Twitch](http://www.twitch.tv/eos_projets)  le Samedi 1er Mars 2025 pour présenter le projet et l'étudier un peu plus en profondeur.**
@@ -69,7 +75,10 @@ Je vois ce projet comme un **projet à moyen terme**, organisé en plusieurs ét
 3. **Test et validation du prototype :** Cette étape est cruciale pour valider les choix de conception, les choix de composants, et les choix de programmation. C'est aussi l'occasion de valider les performances de la monture. À partir de ce stade, le projet prends une autre tournure. On a un système fonctionnel, et on peut maintenant s'amuser à le pousser, en ajoutant des fonctionnalités, en optimisant sa conception, en corrigeant surtout les problèmes de la première version.
 4. **Finalisation du projet :** Cette étape est encore lointaine aujourd'hui. Ce projet a vocation aujourd'hui à rester ouvert. Il faudra adjoindre aux fichiers sources de la documentation, peut-être vendrai je également des kits prémontés … Il me faudra préciser cela au cours du projet, en fonction de mon avancement et de l'intérêt que le projet suscite.
 
+<SectionTitle>
 ## Étape 2 : Comment on conçoit une monture ?
+</SectionTitle>
+
 ### 2.1 : La structure
 Pour bien concevoir une monture, il faut d'abord comprendre comment elle fonctionne et ce qui la compose. Basiquement, quelque soit son architecture, une monture ce sont deux axes orthogonaux qui permettent de balayer toute la voûte céleste, et qui, dans notre cas, seront motorisés. Les moteurs, mais aussi les éventuels capteurs, connecteurs, ... seront gérés automatiquement par une carte électronique, un genre d'unité centrale.
 
@@ -124,7 +133,11 @@ Pour construire ce programme, je ne pars pas de rien puisque ASCOM a publié il 
 > L'un de mes objectifs secondaires dans ce projet sera de publier mes templates pour développer un driver de télescope pour aider la communauté.
 
 **Starget sera donc pilotable par un driver ASCOM Alpaca.**
+
+<SectionTitle>
 ## Étape 3 : Choix technologiques
+</SectionTitle>
+
 Maintenant qu'on a choisis l'architecture de Starget ainsi que le protocole de communication pour s'y connecter, il est possible de se pencher sur la suite. Voici comment je prévois de procéder :
 1. **Coder les fonctions haut niveau du driver Alpaca :** Sans driver, il n'y a pas de contrôle donc pas de monture. Il est logique de commencer par là. Par fonction haut niveau, j'entends la structure d'API en elle-même : récupération des requête, parsing des paramètres, gestion des erreurs etc...
 2. **Concevoir l'ensemble électronique :** Une fois qu'on a la première couche, il faut encore arrêter les choix de capteurs, de moteurs, … et coder les fonctions bas niveau qui seront appelées par le driver pour exécuter les actions de la monture
@@ -269,7 +282,11 @@ Et voici sa modélisation CAO au cours de son élaboration :
 >Un article viendra à l'avenir pour expliquer plus en détail le fonctionnement de ce type de réducteur et partager mon implémentation au sein de Starget.
 
 **Par conséquent, pour des raisons de curiosité et de volonté d'en comprendre un peu plus sur ce mécanisme qui semble sous-coté, j'ai choisi de l'utiliser pour le premier prototype de Starget avec un coefficient de réduction de 1:120.** 
-# Conclusion
+
+<SectionTitle>
+## Conclusion
+</SectionTitle>
+
 Félicitation ! Vous êtes arrivé au bout du pavé, j'ai presque réussi à battre Erwan avec son [dernier article ](https://www.eos-projets.fr/projects/application-flots-partie-1) ^^.
 
 Nous avons survolé l'ensemble du projet, j'espère que vous aurez bien saisi comment je l'avais organisé. À l'avenir, des nouvelles sur le projet seront postées sur notre [serveur discord](https://discord.com/invite/339KvZDSf7). Des articles plus spécifiques sur le réducteur ou encore Alpaca verront le jour également. 
