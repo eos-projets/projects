@@ -1,27 +1,32 @@
 [
 	{
-        "id": "hackathon-digital-justice-a-bologne",
-		"title": "Hackathon Digital Justice à Bologne",
-		"author": "Dorian Chevalerias",
-		"thumbnail": "assets/thumbnail.jpg",
-        "tags": ["hackathon", "IA"],
-        "status": null
-	},
-	{
-        "id": "application-flots-partie-1",
-		"title": "Création de l'application Flots - Partie 1",
-		"author": "Erwan Coubret",
-		"thumbnail": "assets/Flots-logo.png",
-        "tags": ["Application", "IA"],
-        "status": null
-	}
-	,
-	{
-        "id": "starget_presentation",
+		"id": "starget-presentation",
 		"title": "Starget : Conception d'une monture astronomique",
 		"author": "Sylvain Brocas",
 		"thumbnail": "assets/thumbnail.png",
-        "tags": ["Mécatronique", "Python", "Astronomie", "Mécanique", "Électronique"],
-        "status": null
+		"tags": [
+			"Mécatronique",
+			"Python",
+			"Astronomie",
+			"Mécanique",
+			"Électronique"
+		],
+		"status": null
+	},
+	{
+		"id": "application-flots-partie-1",
+		"title": "Création de l'application Flots - Partie 1",
+		"author": "Erwan Coubret",
+		"thumbnail": "assets/Flots-logo.png",
+		"tags": ["Application", "IA"],
+		"status": null
+	},
+	{
+		"id": "hackathon-digital-justice-a-bologne",
+		"title": "Hackathon Digital Justice à Bologne",
+		"author": "Dorian Chevalerias",
+		"thumbnail": "assets/thumbnail.jpg",
+		"tags": ["hackathon", "IA"],
+		"status": null
 	}
 ]

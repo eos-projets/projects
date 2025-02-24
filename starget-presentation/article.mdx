@@ -1,13 +1,18 @@
+---
+title: "Starget : Conception d'une monture astronomique"
+authors: ["Sylvain Brocas"]
+tags: ["Mécatronique", "Python", "Astronomie", "Mécanique", "Électronique"]
+date: "24/02/2025"
+---
+
 # Starget : Conception d'une monture astronomique
+
 Ayant découvert l'astronomie, en tant qu'étudiant il y a quelques années, j'ai toujours été confronté aux limitations liées au budget. Débutant, mes exigences concernant les performances de mon matériel sont limitées. Ajoutant à cela mes études d'ingénieur et les compétences qui en découlent, **il est tout naturel que je me sois tourné vers le DIY pour renforcer mon équipement.**
 
 Pour mieux comprendre la portée et le contexte du projet, il serait peut-être bien que je me présente :  Je suis **Sylvain BROCAS**, **élève ingénieur à l'École Centrale de Lyon** et passionné de sciences et de techniques. **Touche à tout**, je suis toujours à la recherche de nouvelles compétences et de nouveaux défis, en particulier de projets mêlant **mécanique, électronique et programmation**. 
 **Converti à la fabuleuse passion qu'est l'astronomie en arrivant dans mon école, je me suis rapidement tourné vers l'astrophotographie. Le but de mes sessions d'observation nocturne consiste donc à repartir avec une image qui me satisfait**. Au début de l'année 2024, j'étais déjà équipé avec un télescope (Un Arcane N180/1080 pour les connaisseurs), matériel performant mais lourd et encombrant. J'ai donc investit dans une monture plus légère, une [Star Adventurer](http://skywatcher.com/product/star-adventurer/) de chez SkyWatcher. C'est une bonne petite monture, motorisée sur un axe, et fiable… maiiss il me manquait un petit quelque chose.
 
-<p align="center" width="100%">
-    <img width="60%" src="assets/silhouette_nocturne.jpg"><br>
-		<i>Votre serviteur sous la constellation d'Orion</i>
-</p>
+<Picture src="silhouette_nocturne.jpg" />
 
 Pour ceux qui ne sont pas familiers avec ces termes techniques, voici un petit rappel :
 - **L'astrophotographie** est une technique photographique qui consiste à prendre des photos du ciel nocturne, en particulier des étoiles et des planètes. Ce genre de photo demande de longs temps de pose (quelques secondes a plusieurs minutes pour 1 photo), ce qui nécessite un dispositif de suivi assez rapidement.
@@ -24,6 +29,7 @@ Sa grande sœur, la [Star Adventurer GTi](http://www.skywatcher.com/product/star
 Vous l'aurez compris, dans ce projet, les gros défis vont reposer dans l'optimisation du poids, de l'ergonomie et bien sûr du prix final du dispositif. Mais ce n'est pas tout! Une monture c'est également un assemblage de pièces mécaniques qui n'existent que dans mon esprit, de composants électroniques qu'il va falloir assembler intelligemment, programmer afin d'obtenir un Tout fonctionnel.
 
 **Je vous laisse plonger dans cette aventure avec moi, dans cet article, je vais vous amener avec moi dans la jungle que représente un tel projet. Sachez que je partage également régulièrement des nouvelles du projet sur notre [serveur discord](https://discord.com/invite/339KvZDSf7).**
+
 ## Avant-propos 
 Comme dans tout projet, la première chose à faire, c'est de saisir un stylo, un papier (dans mon cas, un carnet entier ^^) et de poser au calme nos idées : 
 
@@ -81,11 +87,7 @@ Une monture s'utilise de la manière suivante :
 ### 2.3 : La connexion avec l'élément de contrôle
 Pour connecter la monture à l'élément de contrôle, il faut choisir un **protocole de communication**. Il en existe plusieurs dédiés à l'astronomie et supportés par quasiment tous les logiciels de contrôle de monture, j'ai choisis de travailler avec une solution qui s'appelle **Alpaca, développé par ASCOM**, grand nom du domaine.
 
-
-<p align="center" width="100%">
-    <img width="33%" src="assets/alpaca_logo.png"><br>
-		<i>Logo du protocole Alpaca</i>
-</p>
+<Picture src="alpaca_logo.png" />
 
 Alpaca est un protocole de communication qui permet de contrôler des équipements astronomiques à distance, via par exemple un réseau local, mais a aussi la particularité d'être multiplateforme. Cela signifie que le driver de la monture pourra être utilisé depuis un PC Windows, Linux, un smartphone sans avoir à réécrire le code pour chaque plateforme.
 
@@ -141,10 +143,10 @@ Au niveau des moteurs, 3 technologies ressortent particulièrement :
 
 | Caractéristique / Characteristic | Moteur à Broches / Brushed Motor | Moteur Sans Broches / Brushless Motor | Moteur Pas à Pas / Stepper Motor |
 | --- | --- | --- | --- |
-| Avantages | • Coût réduit<br>• Contrôle simple<br>• Relation linéaire couple-vitesse | • Plus efficace<br>• Durée de vie plus longue<br>• Moins d'interférences électromagnétiques | • Positionnement précis<br>• Maintien de charge<br>• Fiabilité élevée |
-| Inconvénients | • Usure des balais<br>• Interférences électromagnétiques<br>• Entretien régulier requis | • Coût initial plus élevé<br>• Système de contrôle complexe | • Moins efficace en continu<br>• Torque diminué à haute vitesse |
-| Applications typiques | • Équipements automobiles<br>• Appareils électroménagers<br>• Jouets | • Véhicules électriques<br>• Machines industrielles<br>• Produits de consommation | • Machines CNC<br>• Imprimantes 3D<br>• Robots industriels |
-| Caractéristiques techniques| • Relation linéaire couple-vitesse<br>• Facilement contrôlable<br>• Simple à mettre en œuvre | • Haute efficacité énergétique<br>• Faible friction interne<br>• Longue durée de vie | • Pas précis et répétable<br>• Positionnement exact<br>• Couple élevé à basse vitesse |
+| Avantages | • Coût réduit<br/>• Contrôle simple<br/>• Relation linéaire couple-vitesse | • Plus efficace<br/>• Durée de vie plus longue<br/>• Moins d'interférences électromagnétiques | • Positionnement précis<br/>• Maintien de charge<br/>• Fiabilité élevée |
+| Inconvénients | • Usure des balais<br/>• Interférences électromagnétiques<br/>• Entretien régulier requis | • Coût initial plus élevé<br/>• Système de contrôle complexe | • Moins efficace en continu<br/>• Torque diminué à haute vitesse |
+| Applications typiques | • Équipements automobiles<br/>• Appareils électroménagers<br/>• Jouets | • Véhicules électriques<br/>• Machines industrielles<br/>• Produits de consommation | • Machines CNC<br/>• Imprimantes 3D<br/>• Robots industriels |
+| Caractéristiques techniques| • Relation linéaire couple-vitesse<br/>• Facilement contrôlable<br/>• Simple à mettre en œuvre | • Haute efficacité énergétique<br/>• Faible friction interne<br/>• Longue durée de vie | • Pas précis et répétable<br/>• Positionnement exact<br/>• Couple élevé à basse vitesse |
 
 La grande différence entre les moteurs brushed/brushless et les pas à pas réside principalement dans leur mode de commande. Les premiers se commandent en vitesse : en fonction de la tension "lue" à leur borne, un couple provoque la rotation du rotor qui se stabilise à une certaine vitesse. Dans le cas du moteur pas à pas, le rotor est composé d'aimants et le stator de bobines. Si une bobine est activée, le rotor va se placer en face des pôles attractifs. En alimentant astucieusement les bobines, on peut faire tourner le champs magnétique et le moteur va le suivre. Les fameux *pas* du moteur sont toutes ces positions d'équilibre en face des bobines. **Cette grande différence entre les technos a une grande conséquence : Les moteurs brushed/brushless se commandent naturellement en vitesse alors qu'un moteur pas à pas permet de se commander en position.**
 
@@ -168,9 +170,9 @@ Utiliser ce driver assez évolué me permet de m'éliminer beaucoup de travail d
 > Je tiens à mettre en avant l'[initiative suivante](https://creapunk.com/) : C'est un gars qui développe tout seul son propre driver pour un coût de revient très faible tout en préservant beaucoup d'options intéressantes et de bonnes performances. Le projet est en cours, il a déjà sorti plusieurs versions de son PCB et son software, mais par exemple, l'API de contrôle par port série n'est pas encore implémentée, ainsi que d'autres options de base. Si vous êtes compétents dans le domaine ou tout simplement curieux, essayez de contribuer à son projet, ou simplement lui faire un petit coucou sur son serveur [Discord](https://discord.com/invite/D4EkKaf5vV)
 
 **Pour conclure cette section, j'ai choisis le [moteur suivant](https://www.laskakit.cz/user/related_files/73231_1624__ps_1199sm-17hs4023-etc.pdf) pour les deux axes de la monture :** 
-<p align="center" width="100%">
-	<img width="40%" src="assets/17hs4023_stepper.png">
-</p>
+
+<Picture src="17hs4023_stepper.png" />
+
 ### 3.2 : L'unité centrale
 Pour traiter les instruction, activer les moteurs et lire les capteurs, il nous faut un cerveau, une unité de calcul. Pour sa puissance raisonnable, sa faible consommation et très faible encombrement, j'avais démarré ce projet avec un devkit ESP32 programmé en micropython. Cela permettait d'allier ma connaissance en python, la facilité de développement en conservant un support physique minimal. J'avais réussi à écrire un driver capable de se connecter à NINA (rappelez vous, c'est le logiciel de contrôle) sur la base de [ce projet](https://github.com/RunTJoe/MiPyAlpaca). Mais je suis finalement tombé sur les templates d'ASCOM, disponibles en python, mais pas en version micropython. Certaines idées de futures implémentations auxquelles je pense pour un stade bien plus avancé du projet m'ont poussé à me tourner finalement vers un Raspberry Pi. **J'ai choisis le modèle qui semble le plus adapté à mes besoins et mes contraintes : Le [Raspberry Pi Zero 2 W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf)**
 
@@ -193,9 +195,9 @@ Pour estimer mon besoin de précision sur le suivi, voici mon raisonnement :
 
 
 [Echantillonnage](https://www.univers-astro.fr/fr/content/6-le-calcul-d-echantillonnage) :  
-$$
-e = 206 \times \frac{5.71\ \mu m}{320\ mm} = 3.68''\text{/px}
-$$
+{/* $$
+e = 206 \times \frac{5.71 \mu m}{320\ mm} = 3.68''\text{/px}
+$$ */}
 
 Un pixel couvre donc 3.68" d'arc dans cette configuration. Je veux que l'angle correspondant à un pas soit plus faible que cette valeur pour pouvoir suivre finement le ciel sans décalage entre les images. Si l'on se base sur le critère de Shannon, on devrait avoir un pas au moins deux fois plus fin que la résolution d'un pixel.
 
@@ -221,10 +223,8 @@ flowchart LR
 
 
 Si l'on reprends la situation considérée sous forme de schéma, voilà ce que ça peut donner sur les deux axes :
-<p align="center" width="100%">
-	<img width="100%" src="assets/schema_telescope_param.svg
-	">
-</p>
+
+<Picture src="schema_telescope_param.svg" />
 
 On pose:
 - m = 3.5 kg (Charge utile, centre de gravité en G)
@@ -257,15 +257,13 @@ D'après mes recherches, deux solutions s'offrent à moi :
 Pour le coup, la solution à base de vis sans fin semble s'imposer d'elle même : système connu, un coût pas trop élevé, déjà utilisé par d'autres systèmes, …
 Mais encore une fois, je vois dans ce projet l'occasion de tester des choses, de comprendre comment ça marche ( la grande différence entre les deux solutions tient aussi dans mon niveau de compréhension du mécanisme ^^). Or, si il existe des articles scientifiques traitant principalement de design optimal de SRCPG (oui j'abrège, c'est long à écrire) ainsi que des modes propres du système, je n'ai pas trouvé beaucoup de ressources pour le rendre accessible au niveau bidouilleur. On trouve bien quelques vidéos et articles de blog très intéressants, en particulier [cette vidéo](https://www.youtube.com/watch?v=-VtbSvVxaFA) ainsi que le [repo Github](https://github.com/IdeaPropulsionSystems/CoolEpicyclicGearing) qui va avec, notamment parce qu'elle fait partie des ressources qui explique le mieux à la fois le mécanisme et les équations qui le régissent. Ensuite, il y a quelques posts Hackaday comme [celui-ci](https://hackaday.io/project/164732-mprt-modified-planetary-robotics-transmission) ou [celui-là](https://hackaday.io/project/196907-rr1-real-robot-one-revision-2/log/233687-1x-how-to-calculate-the-reduction-ratio-of-split-ring-planetary-gearbox) qui ont retenus mon attention.
 
-<p align="center" width="100%">
-    <img width="40%" src="assets/video_SRCPG_proto_starget-ezgif.com-video-to-gif-converter.gif"><br>
-		<i>Voici une vidéo du premier prototype de SRCPG que j'ai imprimé au début du projet pour tester le concept</i>
-</p>
+Voici une vidéo du premier prototype de SRCPG que j'ai imprimé au début du projet pour tester le concept
 
-<p align="center" width="100%">
-	<img width="40%" src="assets/SRCPG_starget.png"><br>
-	<i>Et voici sa modélisation CAO au cours de son élaboration</i>
-</p>
+<Picture src="video_SRCPG_proto_starget-ezgif.com-video-to-gif-converter.gif" />
+
+Et voici sa modélisation CAO au cours de son élaboration :
+
+<Picture src="SRCPG_starget.png" />
 
 >Un article viendra à l'avenir pour expliquer plus en détail le fonctionnement de ce type de réducteur et partager mon implémentation au sein de Starget.
 
