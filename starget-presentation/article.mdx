@@ -7,20 +7,20 @@ date: "24/02/2025"
 
 # Starget : Conception d'une monture astronomique
 
-$x= 29$
-
-Ayant découvert l'astronomie, en tant qu'étudiant il y a quelques années, j'ai toujours été confronté aux limitations liées au budget. Débutant, mes exigences concernant les performances de mon matériel sont limitées. Ajoutant à cela mes études d'ingénieur et les compétences qui en découlent, **il est tout naturel que je me sois tourné vers le DIY pour renforcer mon équipement.**
+Ayant découvert l'astronomie en tant qu'étudiant il y a quelques années, j'ai toujours été confronté aux limitations liées au budget. Débutant, mes exigences concernant les performances de mon matériel sont limitées. Ajoutant à cela mes études d'ingénieur et les compétences qui en découlent, **il est tout naturel que je me sois tourné vers le DIY pour renforcer mon équipement.**
 
 Pour mieux comprendre la portée et le contexte du projet, il serait peut-être bien que je me présente :  Je suis **Sylvain BROCAS**, **élève ingénieur à l'École Centrale de Lyon** et passionné de sciences et de techniques. **Touche à tout**, je suis toujours à la recherche de nouvelles compétences et de nouveaux défis, en particulier de projets mêlant **mécanique, électronique et programmation**. 
 **Converti à la fabuleuse passion qu'est l'astronomie en arrivant dans mon école, je me suis rapidement tourné vers l'astrophotographie. Le but de mes sessions d'observation nocturne consiste donc à repartir avec une image qui me satisfait**. Au début de l'année 2024, j'étais déjà équipé avec un télescope (Un Arcane N180/1080 pour les connaisseurs), matériel performant mais lourd et encombrant. J'ai donc investit dans une monture plus légère, une [Star Adventurer](http://skywatcher.com/product/star-adventurer/) de chez SkyWatcher. C'est une bonne petite monture, motorisée sur un axe, et fiable… maiiss il me manquait un petit quelque chose.
 
 <Picture src="silhouette_nocturne.jpg" />
 
+<Note>
 Pour ceux qui ne sont pas familiers avec ces termes techniques, voici un petit rappel :
 - **L'astrophotographie** est une technique photographique qui consiste à prendre des photos du ciel nocturne, en particulier des étoiles et des planètes. Ce genre de photo demande de longs temps de pose (quelques secondes a plusieurs minutes pour 1 photo), ce qui nécessite un dispositif de suivi assez rapidement.
 - **Une monture** est un support qui permet de maintenir un télescope ou un appareil photo en mouvement, de manière à compenser la rotation de la Terre et permettre ces longs temps de pose. Elle peut être motorisée pour automatiser le suivi.
 - **Une monture Équatoriale** est un type de monture qui permet, après un phase de réglage (mise en station), de suivre un objet céleste en compensant la rotation de la Terre en utilisant un seul axe de rotation.
 - **Un APN** est un Appareil Photo Numérique, un appareil photo classique type Reflex ou Hybride.
+</Note>
 
 **Ce que j'attends d'une monture comme la Star Adventurer, c'est de la portabilité, de la légèreté et un minimum de performances.** Cependant, je trouve que pour son poids, elle ne permet pas de porter un gros ensemble optique, elle est trop lourde pour des petits trépieds légers comme un étudiant dans mon cas est capable de se payer. La mise en station peut être difficile parce que le montage est sensible aux vibrations… et les performances de la monture dépendent fortement de la qualité de la mise en station. Rajoutons a cela qu'elle ne dispose pas de pointage automatique, **cette monture est bonne, mais elle peut parfois se révéler fastidieuse à utiliser.**
 
@@ -38,7 +38,7 @@ Vous l'aurez compris, dans ce projet, les gros défis vont reposer dans l'optimi
 
 Comme dans tout projet, la première chose à faire, c'est de saisir un stylo, un papier (dans mon cas, un carnet entier ^^) et de poser au calme nos idées : 
 
-Qu'est-ce que je veux faire ? *Une monture astronomique*. Très bien, mais qu'a-t-elle de spécial cette monture ? *Elle est très légère, on peut le mettre dans son sac sans la casser, et ah, on peut l'alimenter avec une batterie externe… vu qu'on va l'utiliser dans les champs, à la montagne, … Mais, au fait, existe-t-il déjà des montures similaires ? J'ai entendu parler d'Onstep par exemple.
+Qu'est-ce que je veux faire ? *Une monture astronomique*. Très bien, mais qu'a-t-elle de spécial cette monture ? *Elle est très légère, on peut le mettre dans son sac sans la casser, et ah, on peut l'alimenter avec une batterie externe… vu qu'on va l'utiliser dans les champs, à la montagne, …* Mais, au fait, existe-t-il déjà des montures similaires ? J'ai entendu parler d'Onstep par exemple.
 
 > [Onstep](https://onstep.groups.io/g/main/wiki) est un projet Open Source qui permet de motoriser une monture astronomique facilement avec un microcontrôleur et des drivers de moteurs pas-à-pas. C'est une solution très économique et très performante, mais assez mal documentée si l'on sort des compositions classiques.
 
@@ -54,7 +54,9 @@ Qu'est-ce que je veux faire ? *Une monture astronomique*. Très bien, mais qu'a-
 
 Il est temps de passer pour de vrai au projet. Dans cet article, je vais rester assez général. D'autres articles viendrons pour expliquer en détail certains points techniques. Je vais aujourd'hui me contenter d'expliquer les grandes lignes du projet, les grandes étapes que je vais suivre pour arriver à mes fins.
 
-> **Une revue de projet sera justement (ou a été) diffusée sur notre [chaîne Twitch](http://www.twitch.tv/eos_projets)  le Samedi 1er Mars 2025 pour présenter le projet et l'étudier un peu plus en profondeur.**
+<Note>
+Une revue de projet sera justement (ou a été) diffusée sur notre [chaîne Twitch](http://www.twitch.tv/eos_projets)  le **Samedi 1er Mars 2025** pour présenter le projet et l'étudier un peu plus en profondeur.
+</Note>
 
 ### 1.1 : Cahier des charges
 Le cahier des charges de ce projet va rester assez simple et général, dans la mesure où il va évoluer au fur et à mesure des mes découvertes. En effet, bien que déjà expérimenté en programmation, en conception, **développer une monture est quelque chose d'assez particulier**, je n'ai pas vraiment d'expérience dans ce domaine, il m'a fallu plusieurs mois d'explorations pour comprendre comment était structurée une monture, quels étaient les composants comme les moteurs adaptés à cette application, quels outils existent déjà pour me faciliter la tâche sans tout réinventer.
@@ -99,11 +101,11 @@ Une monture s'utilise de la manière suivante :
 ### 2.3 : La connexion avec l'élément de contrôle
 Pour connecter la monture à l'élément de contrôle, il faut choisir un **protocole de communication**. Il en existe plusieurs dédiés à l'astronomie et supportés par quasiment tous les logiciels de contrôle de monture, j'ai choisis de travailler avec une solution qui s'appelle **Alpaca, développé par ASCOM**, grand nom du domaine.
 
-<Picture src="alpaca_logo.png" />
+<Picture src="alpaca_logo.png" little description="Logo d'ASCOM Alpaca"/>
 
 Alpaca est un protocole de communication qui permet de contrôler des équipements astronomiques à distance, via par exemple un réseau local, mais a aussi la particularité d'être multiplateforme. Cela signifie que le driver de la monture pourra être utilisé depuis un PC Windows, Linux, un smartphone sans avoir à réécrire le code pour chaque plateforme.
 
-**Voici comment fonctionne Alpaca** : Pour construire le driver qui permettra la communication entre l'élément de contrôle et la monture, il faut développer un driver *Client* côté contrôle, et un driver *Device* côté monture qui respectivement enverront et recevront les instruction. Le driver *Client* est déjà implémenté dans la plupart des logiciels astro, c'est quelque chose que je n'aurai pas à faire. Il me reste tout de même à développer le bout de code qui transformera des messages standardisés et les **paramètres**** associés à la commande en une action physique de la monture (mouvement, lecture de la position, …)
+**Voici comment fonctionne Alpaca** : Pour construire le driver qui permettra la communication entre l'élément de contrôle et la monture, il faut développer un driver *Client* côté contrôle, et un driver *Device* côté monture qui respectivement enverront et recevront les instruction. Le driver *Client* est déjà implémenté dans la plupart des logiciels astro, c'est quelque chose que je n'aurai pas à faire. Il me reste tout de même à développer le bout de code qui transformera des messages standardisés et les **paramètres** associés à la commande en une action physique de la monture (mouvement, lecture de la position, …)
 
 Le diagramme suivant précise le parcours communications au sein d'un driver Alpaca :
 <Picture  src="alpaca_workflow_diagram.svg" />
