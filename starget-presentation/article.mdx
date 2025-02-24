@@ -101,7 +101,7 @@ Une monture s'utilise de la manière suivante :
 ### 2.3 : La connexion avec l'élément de contrôle
 Pour connecter la monture à l'élément de contrôle, il faut choisir un **protocole de communication**. Il en existe plusieurs dédiés à l'astronomie et supportés par quasiment tous les logiciels de contrôle de monture, j'ai choisis de travailler avec une solution qui s'appelle **Alpaca, développé par ASCOM**, grand nom du domaine.
 
-<Picture src="alpaca_logo.png" little description="Logo d'ASCOM Alpaca"/>
+<Picture src="alpaca_logo.png" little description="Logo d'ASCOM Alpaca avec une qualité de folie !"/>
 
 Alpaca est un protocole de communication qui permet de contrôler des équipements astronomiques à distance, via par exemple un réseau local, mais a aussi la particularité d'être multiplateforme. Cela signifie que le driver de la monture pourra être utilisé depuis un PC Windows, Linux, un smartphone sans avoir à réécrire le code pour chaque plateforme.
 
@@ -191,8 +191,9 @@ Pour estimer mon besoin de précision sur le suivi, voici mon raisonnement :
 - Taille pixel : 5.71 μm
 
 
-[Echantillonnage](https://www.univers-astro.fr/fr/content/6-le-calcul-d-echantillonnage) :  
-<Picture src="equation.png" />
+[Echantillonnage](https://www.univers-astro.fr/fr/content/6-le-calcul-d-echantillonnage) :
+
+<Picture src="equation.png" little/>
 
 Un pixel couvre donc 3.68" d'arc dans cette configuration. Je veux que l'angle correspondant à un pas soit plus faible que cette valeur pour pouvoir suivre finement le ciel sans décalage entre les images. Si l'on se base sur le critère de Shannon, on devrait avoir un pas au moins deux fois plus fin que la résolution d'un pixel.
 
@@ -240,13 +241,9 @@ D'après mes recherches, deux solutions s'offrent à moi :
 Pour le coup, la solution à base de vis sans fin semble s'imposer d'elle même : système connu, un coût pas trop élevé, déjà utilisé par d'autres systèmes, …
 Mais encore une fois, je vois dans ce projet l'occasion de tester des choses, de comprendre comment ça marche ( la grande différence entre les deux solutions tient aussi dans mon niveau de compréhension du mécanisme ^^). Or, si il existe des articles scientifiques traitant principalement de design optimal de SRCPG (oui j'abrège, c'est long à écrire) ainsi que des modes propres du système, je n'ai pas trouvé beaucoup de ressources pour le rendre accessible au niveau bidouilleur. On trouve bien quelques vidéos et articles de blog très intéressants, en particulier [cette vidéo](https://www.youtube.com/watch?v=-VtbSvVxaFA) ainsi que le [repo Github](https://github.com/IdeaPropulsionSystems/CoolEpicyclicGearing) qui va avec, notamment parce qu'elle fait partie des ressources qui explique le mieux à la fois le mécanisme et les équations qui le régissent. Ensuite, il y a quelques posts Hackaday comme [celui-ci](https://hackaday.io/project/164732-mprt-modified-planetary-robotics-transmission) ou [celui-là](https://hackaday.io/project/196907-rr1-real-robot-one-revision-2/log/233687-1x-how-to-calculate-the-reduction-ratio-of-split-ring-planetary-gearbox) qui ont retenus mon attention.
 
-Voici une vidéo du premier prototype de SRCPG que j'ai imprimé au début du projet pour tester le concept
+<Picture src="video_SRCPG_proto_starget-ezgif.com-video-to-gif-converter.gif" description="Voici une vidéo du premier prototype de SRCPG que j'ai imprimé au début du projet pour tester le concept" />
 
-<Picture src="video_SRCPG_proto_starget-ezgif.com-video-to-gif-converter.gif" />
-
-Et voici sa modélisation CAO au cours de son élaboration :
-
-<Picture src="SRCPG_starget.png" />
+<Picture src="SRCPG_starget.png" description="Et voici sa modélisation CAO au cours de son élaboration"/>
 
 >Un article viendra à l'avenir pour expliquer plus en détail le fonctionnement de ce type de réducteur et partager mon implémentation au sein de Starget.
 
