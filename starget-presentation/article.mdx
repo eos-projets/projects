@@ -87,7 +87,7 @@ Je vois ce projet comme un **projet à moyen terme**, organisé en plusieurs ét
 ### 2.1 : La structure
 Pour bien concevoir une monture, il faut d'abord comprendre comment elle fonctionne et ce qui la compose. Basiquement, quelque soit son architecture, une monture ce sont deux axes orthogonaux qui permettent de balayer toute la voûte céleste, et qui, dans notre cas, seront motorisés. Les moteurs, mais aussi les éventuels capteurs, connecteurs, ... seront gérés automatiquement par une carte électronique, un genre d'unité centrale.
 
-Je ne rentrerai pas dans le détail de toutes les architectures physiques de monture qui existent, je vous laisse un petit lien vers une une ressource assez exhaustive sur le sujet [ici](http://serge.bertorello.free.fr/optique/montures/montures.html). Sachez simplement que j'ai choisis une architecture de monture équatoriale.
+Je ne rentrerai pas dans le détail de toutes les architectures physiques de monture qui existent, je vous laisse un petit lien vers une une ressource assez exhaustive sur le sujet [ici](http://serge.bertorello.free.fr/optique/montures/montures.html). Sachez simplement que j'ai choisi une architecture de monture équatoriale.
 
 ### 2.2 : Utilisation d'une monture
 Une monture s'utilise de la manière suivante : 
@@ -99,7 +99,7 @@ Une monture s'utilise de la manière suivante :
 > En règle générale, l'élément de contrôle est un logiciel PC, mais il peut aussi s'agir d'une application mobile ou d'une télécommande. Dans notre cas, le premier prototype sera pensé pour fonctionner avec le logiciel [NINA](https://nighttime-imaging.eu/), très répandu dans le monde de l'astrophotographie.
 
 ### 2.3 : La connexion avec l'élément de contrôle
-Pour connecter la monture à l'élément de contrôle, il faut choisir un **protocole de communication**. Il en existe plusieurs dédiés à l'astronomie et supportés par quasiment tous les logiciels de contrôle de monture, j'ai choisis de travailler avec une solution qui s'appelle **Alpaca, développé par ASCOM**, grand nom du domaine.
+Pour connecter la monture à l'élément de contrôle, il faut choisir un **protocole de communication**. Il en existe plusieurs dédiés à l'astronomie et supportés par quasiment tous les logiciels de contrôle de monture, j'ai choisi de travailler avec une solution qui s'appelle **Alpaca, développé par ASCOM**, grand nom du domaine.
 
 <Picture src="alpaca_logo.png" little description="Logo d'ASCOM Alpaca avec une qualité de folie !"/>
 
@@ -166,12 +166,12 @@ Utiliser ce driver assez évolué me permet de m'éliminer beaucoup de travail d
 
 > Je tiens à mettre en avant l'[initiative suivante](https://creapunk.com/) : C'est un gars qui développe tout seul son propre driver pour un coût de revient très faible tout en préservant beaucoup d'options intéressantes et de bonnes performances. Le projet est en cours, il a déjà sorti plusieurs versions de son PCB et son software, mais par exemple, l'API de contrôle par port série n'est pas encore implémentée, ainsi que d'autres options de base. Si vous êtes compétents dans le domaine ou tout simplement curieux, essayez de contribuer à son projet, ou simplement lui faire un petit coucou sur son serveur [Discord](https://discord.com/invite/D4EkKaf5vV)
 
-**Pour conclure cette section, j'ai choisis le [moteur suivant](https://www.laskakit.cz/user/related_files/73231_1624__ps_1199sm-17hs4023-etc.pdf) pour les deux axes de la monture :** 
+**Pour conclure cette section, j'ai choisi le [moteur suivant](https://www.laskakit.cz/user/related_files/73231_1624__ps_1199sm-17hs4023-etc.pdf) pour les deux axes de la monture :** 
 
-<Picture src="17hs4023_stepper.png" />
+<Picture src="17hs4023_stepper.png" little/>
 
 ### 3.2 : L'unité centrale
-Pour traiter les instruction, activer les moteurs et lire les capteurs, il nous faut un cerveau, une unité de calcul. Pour sa puissance raisonnable, sa faible consommation et très faible encombrement, j'avais démarré ce projet avec un devkit ESP32 programmé en micropython. Cela permettait d'allier ma connaissance en python, la facilité de développement en conservant un support physique minimal. J'avais réussi à écrire un driver capable de se connecter à NINA (rappelez vous, c'est le logiciel de contrôle) sur la base de [ce projet](https://github.com/RunTJoe/MiPyAlpaca). Mais je suis finalement tombé sur les templates d'ASCOM, disponibles en python, mais pas en version micropython. Certaines idées de futures implémentations auxquelles je pense pour un stade bien plus avancé du projet m'ont poussé à me tourner finalement vers un Raspberry Pi. **J'ai choisis le modèle qui semble le plus adapté à mes besoins et mes contraintes : Le [Raspberry Pi Zero 2 W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf)**
+Pour traiter les instruction, activer les moteurs et lire les capteurs, il nous faut un cerveau, une unité de calcul. Pour sa puissance raisonnable, sa faible consommation et très faible encombrement, j'avais démarré ce projet avec un devkit ESP32 programmé en micropython. Cela permettait d'allier ma connaissance en python, la facilité de développement en conservant un support physique minimal. J'avais réussi à écrire un driver capable de se connecter à NINA (rappelez vous, c'est le logiciel de contrôle) sur la base de [ce projet](https://github.com/RunTJoe/MiPyAlpaca). Mais je suis finalement tombé sur les templates d'ASCOM, disponibles en python, mais pas en version micropython. Certaines idées de futures implémentations auxquelles je pense pour un stade bien plus avancé du projet m'ont poussé à me tourner finalement vers un Raspberry Pi. **j'ai choisi le modèle qui semble le plus adapté à mes besoins et mes contraintes : Le [Raspberry Pi Zero 2 W](https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf)**
 
 Cette carte sera programmée en python. On peut y adjoindre des modules pour capter le signal GPS, des modules RTC pour garder l'heure en mémoire même hors tension, qui permettraient d'ajouter des fonctions pratiques pour Starget. La carte dispose également d'un port de communication UART qui permettra de contrôler entre autres choses les moteurs. Il y a également suffisamment d'entrées/sorties pour y brancher les capteurs qui équiperont la monture.
 
