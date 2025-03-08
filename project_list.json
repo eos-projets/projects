@@ -32,8 +32,9 @@
 	{
 		"id": "my-test-article",
 		"title": "My test article",
-		"author": "Dorian Chevalerias",
+		"author": "Dodo Test",
 		"thumbnail": "assets/thumbnail.jpg",
-		"tags": ["test", "IA"]
+		"tags": ["test", "IA"],
+		"status": null
 	}
 ]
