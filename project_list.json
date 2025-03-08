@@ -28,5 +28,12 @@
 		"thumbnail": "assets/thumbnail.jpg",
 		"tags": ["hackathon", "IA"],
 		"status": null
+	},
+	{
+		"id": "my-test-article",
+		"title": "My test article",
+		"author": "Dorian Chevalerias",
+		"thumbnail": "assets/thumbnail.jpg",
+		"tags": ["test", "IA"]
 	}
 ]
