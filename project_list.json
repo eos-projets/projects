@@ -36,5 +36,13 @@
 		"thumbnail": "assets/thumbnail.jpg",
 		"tags": ["test", "IA"],
 		"status": null
+	},
+	{
+		"id": "interview_bonvan",
+		"title": "BONVAN : L’aventure entrepreneuriale de deux étudiants passionnés",
+		"author": "Sylvain Brocas",
+		"thumbnail": "assets/thumbnail.jpg",
+		"tags": ["Entrepreneuriat", "Éolienne", "Start-up"],
+		"status": null
 	}
 ]
