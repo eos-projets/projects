@@ -28,13 +28,5 @@
 		"thumbnail": "assets/thumbnail.jpg",
 		"tags": ["hackathon", "IA"],
 		"status": null
-	},
-	{
-		"id": "interview-bonvan",
-		"title": "BONVAN : Étudiants et entrepreneurs, ils veulent populariser l'énergie éolienne",
-		"author": "Sylvain Brocas",
-		"thumbnail": "assets/thumbnail.png",
-		"tags": ["Entrepreneuriat", "Éolienne", "Start-up"],
-		"status": null
 	}
 ]
