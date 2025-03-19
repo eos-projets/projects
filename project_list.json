@@ -1,5 +1,13 @@
 [
 	{
+		"id": "interview-bonvan",
+		"title": "BONVAN : Étudiants et entrepreneurs, ils veulent populariser l'énergie éolienne",
+		"author": "Sylvain Brocas",
+		"thumbnail": "assets/thumbnail.png",
+		"tags": ["Entrepreneuriat", "Éolienne", "Start-up"],
+		"status": null
+	},
+	{
 		"id": "starget-presentation",
 		"title": "Starget : Conception d'une monture astronomique",
 		"author": "Sylvain Brocas",
@@ -27,14 +35,6 @@
 		"author": "Dorian Chevalerias",
 		"thumbnail": "assets/thumbnail.jpg",
 		"tags": ["hackathon", "IA"],
-		"status": null
-	},
-	{
-		"id": "interview-bonvan",
-		"title": "BONVAN : Étudiants et entrepreneurs, ils veulent populariser l'énergie éolienne",
-		"author": "Sylvain Brocas",
-		"thumbnail": "assets/thumbnail.png",
-		"tags": ["Entrepreneuriat", "Éolienne", "Start-up"],
 		"status": null
 	}
 ]
