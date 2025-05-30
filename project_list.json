@@ -1,5 +1,13 @@
 [
 	{
+		"id": "hackathon-gdg-ai-hack-milan",
+		"title": "Hackathon GDG AI Hack 2025 à Milan",
+		"author": "Adrien Jayat",
+		"thumbnail": "assets/photo.jpg",
+		"tags": ["Hackathon", "IA"],
+		"status": null
+	},
+	{
 		"id": "interview-bonvan",
 		"title": "BONVAN : Étudiants et entrepreneurs, ils veulent populariser l'énergie éolienne",
 		"author": "Sylvain Brocas",
