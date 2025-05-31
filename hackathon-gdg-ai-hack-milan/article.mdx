@@ -11,7 +11,7 @@ site: "https://gdgaihack.webflow.io/"
 
 Ciao a tutti ! 
 
-Je suis étudiant en informatique à Télécom Physique Strasbourg, spécialisé en Science des Données et IA.
+Je m'appelle [Adrien Jayat](https://www.linkedin.com/in/adrien-jayat/) et je suis étudiant en informatique à Télécom Physique Strasbourg, spécialisé en Science des Données et IA.
 
 Début mai, à l'occasion de mon semestre Erasmus à [*Politecnico di Milano*](https://www.polimi.it/) (PoliMi pour les intimes),
 j’ai eu la chance de participer au **𝐇𝐚𝐜𝐤𝐚𝐭𝐡𝐨𝐧 𝐆𝐃𝐆 𝐀𝐈 𝐇𝐀𝐂𝐊** organisé par le 
@@ -28,7 +28,7 @@ Voici ma formidable équipe de français 🇫🇷, tous en mobilité à PoliMi.
 - [Ulysse Grimault](https://www.linkedin.com/in/ulysse-grimault-0ab143273/) — Étudiant à [Centrale Nantes](https://www.ec-nantes.fr/)
 - [Marc LIN](https://www.linkedin.com/in/marc-lin/) — Étudiant à [Centrale Lille](https://centralelille.fr/)
 - [Vassily Berard](https://www.linkedin.com/in/vassily-berard/) — Étudiant à Centrale Nantes
-- [Adrien Jayat](https://www.linkedin.com/in/) — Moi, bien-sûr ! Étudiant à Télécom Physique Strasbourg
+- [Adrien Jayat](https://www.linkedin.com/in/adrien-jayat/) — Moi, bien-sûr ! Étudiant à Télécom Physique Strasbourg
 
 Dans ce monde de pizza et de pasta, nous avons fièrement appelé notre équipe: *The Gigabits* !
 
@@ -72,6 +72,13 @@ On est ensuite rentrés chez nous pour dormir, enfin... pour moi la nuit fut cou
 En plus du proof-of-concept à réaliser, il y avait également quelques challenges annexes :
 
 - **Machine Learning** : Écrire un script de ML (traitement de données, analyse, visualisation...) en une seule ligne en Python.
+
+Voici la ligne que j'ai soumise; elle réalise une pipeline complète en chargeant la base de donnée MNIST, en entrainant un perceptron multi-couches avec de la validation croisée et en affichant les résultats :
+
+```python
+__import__("pandas").DataFrame((sk := __import__("sklearn")).model_selection.GridSearchCV(sk.neural_network.MLPClassifier(max_iter=800), {'hidden_layer_sizes': __import__("numpy").arange(10, 70, 2)}, cv=3, n_jobs=-1).fit(*sk.datasets.load_digits(return_X_y=True, as_frame=True)).cv_results_).plot(x='param_hidden_layer_sizes', y='mean_test_score')
+```
+
 - **CTF (Capture The Flag)** : Un challenge où l'objectif était de retrouver un flag (une phrase spéciale) à partir d'un fichier exécutable (binaire ELF), 
     qu'il fallait analyser.
 
